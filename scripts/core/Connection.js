@@ -146,8 +146,8 @@ function Connection(scene){
 		// draw all pulses
 		for(var i=0;i<self.pulses.length;i++){
 			var pulse = self.pulses[i];
-            colors = ['#fff', '#f00', '#00f'];
-            fillStyle = colors[pulse.type +1]; // TODO change when I don't allow to click neurons so there will not be a pulse with type == -1
+            colors = ['#f00', '#0f0', '#00f','#fff','#ff0','#f0f','#0ff', ];
+            fillStyle = colors[pulse.type];
 			ctx.fillStyle = fillStyle; // DAVID TODO use a dictionary that should be in the info that we serialize
 			ctx.beginPath();
 			ctx.arc(pulse.distance, offsetY, self.fullLineWidth*pulse.flow/100 *2, 0, 2*Math.PI, false);
