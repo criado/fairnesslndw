@@ -147,9 +147,46 @@ div, canvas{
 .control_volume_slider{
     float: left;
 	height: 890px;
+    width: 20px;
     background: #d3d3d3;
 }
 
+.control_volume_slider::-moz-range-thumb {
+  width: 20;
+  height: 20;
+  border: 0;
+  cursor: pointer;
+  /* background: url('./../assets/ui/happy.png'); */
+  background:var(--img-path);
+}
+
+
+#control_volume_slider0::-moz-range-progress {
+  background-color: #ff0000; 
+  width: 100%;
+}
+
+#control_volume_slider1::-moz-range-progress {
+  background-color: #00ff00; 
+  width: 100%;
+}
+#control_volume_slider2::-moz-range-progress {
+  background-color: #0000ff; 
+  width: 100%;
+}
+#control_volume_slider3::-moz-range-progress {
+  background-color: #ffff00; 
+  width: 100%;
+}
+
+#control_volume_slider4::-moz-range-progress {
+  background-color: #ff00ff; 
+  width: 100%;
+}
+#control_volume_slider5::-moz-range-progress {
+  background-color: #00ffff; 
+  width: 100%;
+}
 
 /** CONTROLS **/
 

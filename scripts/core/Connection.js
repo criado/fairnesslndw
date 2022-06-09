@@ -146,7 +146,7 @@ function Connection(scene){
 		// draw all pulses
 		for(var i=0;i<self.pulses.length;i++){
 			var pulse = self.pulses[i];
-            colors = ['#f00', '#0f0', '#00f','#fff','#ff0','#f0f','#0ff', ];
+            colors = ['#f00', '#0f0', '#00f','#ff0','#f0f','#0ff','#fff' ];
             fillStyle = colors[pulse.type];
 			ctx.fillStyle = fillStyle; // DAVID TODO use a dictionary that should be in the info that we serialize
 			ctx.beginPath();

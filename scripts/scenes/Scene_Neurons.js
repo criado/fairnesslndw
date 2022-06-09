@@ -179,8 +179,11 @@ function Scene_Propagation(){
     // TODO I don't know how to do it in general without duplicating code so I'm just copying at the moment. We can have at most 6 sliders. 
     //
     // TODO we could greatly improve the efficiency of this with better data structures
+    //
+    // TODO change the thumb depending on the envy or not pareto optimality.
 
     var volumeSlider0 = document.getElementById("control_volume_slider0");
+    var eps = 0.1;
 
     if(volumeSlider0)
         volumeSlider0.oninput = function(){
@@ -203,9 +206,22 @@ function Scene_Propagation(){
                     capped_value = Math.min(capped_value, capacity);
                 }
             }
-            if  (volumeSlider0.value < capped_value) // take the minimum of the maximum possible value and the slider value
-                capped_value = Math.min(capped_value, volumeSlider0.value);
+
+            happy = capped_value <= this.value && capped_value >= 50-eps; // TODO write generically
+            // TODO everyone should be checked and their icons possibly changed
+            // TODO if everyone is happy, set scene.won == true
+            if(happy){
+                if (this.style != "--img-path:url('./../assets/ui/happy.png')");
+                    this.style="--img-path:url('./../assets/ui/happy.png')";
+            }
+            else{
+                if (this.style != "--img-path:url('./../assets/ui/sad.png')");
+                    this.style="--img-path:url('./../assets/ui/sad.png')";
+            }
+
+            capped_value = Math.min(capped_value, this.value); // take the minimum of the maximum possible value and the slider value
             this.value = capped_value;
+
 
             current_map = self.flows[slider_idx];
             current_map.forEach((value, key, map) => ( 
@@ -237,8 +253,17 @@ function Scene_Propagation(){
                     capped_value = Math.min(capped_value, capacity);
                 }
             }
-            if  (volumeSlider1.value < capped_value) // take the minimum of the maximum possible value and the slider value
-                capped_value = Math.min(capped_value, volumeSlider1.value);
+            happy = capped_value <= this.value && capped_value >= 50-eps; // TODO write generically
+            if(happy){
+                if (this.style != "--img-path:url('./../assets/ui/happy.png')");
+                    this.style="--img-path:url('./../assets/ui/happy.png')";
+            }
+            else{
+                if (this.style != "--img-path:url('./../assets/ui/sad.png')");
+                    this.style="--img-path:url('./../assets/ui/sad.png')";
+            }
+
+            capped_value = Math.min(capped_value, this.value); // take the minimum of the maximum possible value and the slider value
             this.value = capped_value;
 
             current_map = self.flows[slider_idx];
@@ -271,8 +296,17 @@ function Scene_Propagation(){
                     capped_value = Math.min(capped_value, capacity);
                 }
             }
-            if  (volumeSlider2.value < capped_value) // take the minimum of the maximum possible value and the slider value
-                capped_value = Math.min(capped_value, volumeSlider2.value);
+            happy = capped_value <= volumeSlider2.value && capped_value >= 50-eps; // TODO write generically
+            if(happy){
+                if (this.style != "--img-path:url('./../assets/ui/happy.png')");
+                    this.style="--img-path:url('./../assets/ui/happy.png')";
+            }
+            else{
+                if (this.style != "--img-path:url('./../assets/ui/sad.png')");
+                    this.style="--img-path:url('./../assets/ui/sad.png')";
+            }
+
+            capped_value = Math.min(capped_value, volumeSlider2.value); // take the minimum of the maximum possible value and the slider value
             this.value = capped_value;
 
             current_map = self.flows[slider_idx];
