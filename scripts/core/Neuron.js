@@ -155,7 +155,7 @@ function Neuron(scene){
 	self.update = function(timer){
 
         // Fire every second (30 frames)
-        if(timer % 15 == 0 && self.type >= 0 && self.type % 2 == 0){
+        if(timer % 15 == self.phase){
             self.pulse();
             //publish("/neuron/click",[self]);
         }
@@ -314,6 +314,9 @@ Neuron.add = function(x,y,type,scene){
     neuron.type = type
 	neuron.clickable = true;
 
+    // -1 means it never fires
+    neuron.phase = type >= 0 && type % 2 == 0 ? scene.phases[type/2] : -1;
+
 	// Push it
 	var neurons = scene.neurons;
 	neurons.push(neuron);
@@ -377,6 +380,8 @@ Neuron.unserialize = function(scene,string,detailed){
 
 	// Prepare input
 	var input = JSON.parse(string);
+
+    scene.phases = input.phases; // just to emit the balls at different phases
 
 	// Create neurons
 	for(var i=0;i<input.neurons.length;i++){

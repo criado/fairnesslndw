@@ -101,6 +101,7 @@ function Connection(scene){
 	};
 
 	self.strokeStyle = "#aaaaaa";
+	self.strokeStyleSaturated = "#ffaaaa";
 	self.fullLineWidth = 30;
 	self.lineWidth = self.fullLineWidth * (self.capacity/100);
 	self.easedLineWidth = self.lineWidth;
@@ -127,10 +128,17 @@ function Connection(scene){
 		//var endX = (distance*self.strengthEased)-self.endDistance;
         var endX = distance
 		if(endX>0){
+            capacity = self.capacity;
+            for(var i=0;i<self.scene.flows.length;i++){
+                from = self.from.id.toString();
+                to = self.to.id;
+                if(self.scene.flows[i].get(from) && self.scene.flows[i].get(from)[to])// If the edge exists, decrease  
+                    capacity -= self.scene.flows[i].get(from)[to];
+            }
+            ctx.strokeStyle = capacity > 0 ? self.strokeStyle : self.strokeStyleSaturated;
 
 			// draw a line
 			var offsetY = 0;
-			ctx.strokeStyle = self.strokeStyle;
 			ctx.lineWidth = self.easedLineWidth;
 			ctx.lineCap = 'butt';
 			ctx.beginPath();
@@ -172,6 +180,8 @@ Connection.add = function(from,to,capacity,scene){
 	// Add it
 	var connections = scene.connections;
 	connections.push(connection);
+
+    connection.scene = scene; // TODO recheck if I want to have a reference to the scene for every connection. Right now I'm using it for the color of the saturated connections
 
 	// Return
 	return connection;
