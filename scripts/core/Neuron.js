@@ -151,8 +151,6 @@ function Neuron(scene){
 
 	// Highlight
 	//self.highlightFade = 0.8;
-    //
-    //self.timer = 0; // TODO change it is a bit absurd that each neuron is counting frames
 
 	self.update = function(timer){
 
@@ -403,5 +401,11 @@ Neuron.unserialize = function(scene,string,detailed){
 		var flow = input.flows[i];
         scene.flows.push(new Map(Object.entries(flow)));
 	}
+
+    controls = document.getElementById("controls")
+    for(var i=0;i<input.initial.length;i++){
+        controls.innerHTML += `<input class="control_volume_slider" id="control_volume_slider${i}" style="--img-path:url(\'./../assets/ui/sad.png\')" type="range" orient="vertical" min="0" max="100" step="0.1" value="${input.initial[i]}" />`;
+    }
+    scene.optimal = input.optimal; // Optimal (approximate) values. It is important that our approximate solution is feasible, otherwise we might not have a feasible solution being in the ell-infinity box \Pi[optimal[i]-eps]. Although our eps is quite large, so probably we won't have any problems in any case.
 
 };

@@ -100,8 +100,8 @@ function Connection(scene){
 		self.easedLineWidth = self.easedLineWidth*0.9 + self.lineWidth*0.1;
 	};
 
-	self.strokeStyle = "#555555";
-	self.fullLineWidth = 12;
+	self.strokeStyle = "#aaaaaa";
+	self.fullLineWidth = 30;
 	self.lineWidth = self.fullLineWidth * (self.capacity/100);
 	self.easedLineWidth = self.lineWidth;
 	self.pulseRadius = 8;
@@ -150,7 +150,7 @@ function Connection(scene){
             fillStyle = colors[pulse.type];
 			ctx.fillStyle = fillStyle; // DAVID TODO use a dictionary that should be in the info that we serialize
 			ctx.beginPath();
-			ctx.arc(pulse.distance, offsetY, self.fullLineWidth*pulse.flow/100 *1.5, 0, 2*Math.PI, false);
+			ctx.arc(pulse.distance, offsetY, self.fullLineWidth*pulse.flow/100 /2, 0, 2*Math.PI, false);
 			ctx.fill();
 		}
 
