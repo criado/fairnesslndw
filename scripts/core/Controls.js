@@ -56,7 +56,6 @@ resume_screen.onclick = function(){
 	Interactive.play();
 	_updatePauseUI();
 };
-*/
 
 //////////////////////
 /// VOLUME CONTROL ///
@@ -105,6 +104,8 @@ volumeSlider.oninput = function(){
 	createjs.Sound.volume = volumeSlider.value;
 	_updateVolumeIcon();
 };
+
+*/
 
 
 //////////////////////

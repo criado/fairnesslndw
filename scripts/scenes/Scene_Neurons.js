@@ -6,8 +6,9 @@
 
 
 // lvl 2 is already a classic
-var NEURONS_SERIALIZED='{"neurons":[[70, 200, 0], [200, 200, -1], [200,100, 2], [300,200,-1], [300,100,3], [412,200,-1],[412,100,4],[512,200,-1],[512,100,5], [630,200,1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100]],"flows":[{"0":{"1": 50},"1":{"3":50}, "3":{"5":50}, "5":{"7":50}, "7":{"9":50}}, {"2":{"1":50}, "1":{"3":50}, "3":{"4":50}}, {"6":{"5":50}, "5":{"7":50}, "7":{"8":50}}]}';
-// For this test I am sending info that is half of the capacity 
+var NEURONS_SERIALIZED='{"neurons":[[70, 200, 0], [200, 200, -1], [200,100, 2], [300,200,-1], [300,100,3], [412,200,-1],[412,100,4],[512,200,-1],[512,100,5], [630,200,1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100]],"flows":[{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":100}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}]}';
+//  
+// I just initialized it to the 0 100 100 initial state ~~For this test I am sending info that is half of the capacity~~
 
 
  
@@ -147,5 +148,244 @@ function Scene_Propagation(){
 		self.camera.x = 1600; // DAVID: This is just to transition out, it takes you out of the scene, then the scene is killed, a new one is loaded and there is a transition in
 		return function(){return (self.cameraEased.x>1600);}; // done when this is
 	};
+
+    /*
+    function deal_with_slider(slider, i){
+            console.log(slider.id[slider.id.length-1]);
+            var current_map = self.flows[i];
+            //console.log(current_map);
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = slider.value)
+            ));
+            self.flow_changed = true;
+    }
+
+	for(var i=0;i<self.flows.length;i++){
+        console.log("control_volume_slider"+i.toString());
+        var volumeSlider = document.getElementById("control_volume_slider"+i.toString());
+
+        volumeSlider.oninput = function(){
+            console.log(slider.id[slider.id.length-1]);
+            var current_map = self.flows[slider.id[slider.id.length-1]];
+            //console.log(current_map);
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = slider.value)
+            ));
+            self.flow_changed = true;
+        };
+    }
+    */
+
+    // TODO I don't know how to do it in general without duplicating code so I'm just copying at the moment. We can have at most 6 sliders. 
+    //
+    // TODO we could greatly improve the efficiency of this with better data structures
+
+    var volumeSlider0 = document.getElementById("control_volume_slider0");
+
+    if(volumeSlider0)
+        volumeSlider0.oninput = function(){
+            slider_idx = 0;
+            capped_value = 100;
+            flow = self.flows[slider_idx];
+            for (const [from, tos] of flow) {
+                for (const [to, value] of Object.entries(tos)) { // check all of the adjacency list
+                    var capacity;
+                    for(var i=0;i<self.connections.length;i++){ // finding capacity
+                        if(self.connections[i].from.id == from && self.connections[i].to.id == to)
+                            capacity = self.connections[i].capacity;
+                    }
+                    for(var i=0;i<self.flows.length;i++){ //check other flows
+                        if(i == slider_idx)
+                            continue;
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]) // If the edge exists for another type, decrease capacity
+                            capacity -= self.flows[i].get(from)[to];
+                    }
+                    capped_value = Math.min(capped_value, capacity);
+                }
+            }
+            if  (volumeSlider0.value < capped_value) // take the minimum of the maximum possible value and the slider value
+                capped_value = Math.min(capped_value, volumeSlider0.value);
+            this.value = capped_value;
+
+            current_map = self.flows[slider_idx];
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = capped_value)
+            ));
+            self.flow_changed = true;
+        }
+
+    var volumeSlider1 = document.getElementById("control_volume_slider1");
+
+    if(volumeSlider1)
+        volumeSlider1.oninput = function(){
+            slider_idx = 1;
+            capped_value = 100;
+            flow = self.flows[slider_idx];
+            for (const [from, tos] of flow) {
+                for (const [to, value] of Object.entries(tos)) { // check all of the adjacency list
+                    var capacity;
+                    for(var i=0;i<self.connections.length;i++){ // finding capacity
+                        if(self.connections[i].from.id == from && self.connections[i].to.id == to)
+                            capacity = self.connections[i].capacity;
+                    }
+                    for(var i=0;i<self.flows.length;i++){ //check other flows
+                        if(i == slider_idx)
+                            continue;
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]) // If the edge exists for another type, decrease capacity
+                            capacity -= self.flows[i].get(from)[to];
+                    }
+                    capped_value = Math.min(capped_value, capacity);
+                }
+            }
+            if  (volumeSlider1.value < capped_value) // take the minimum of the maximum possible value and the slider value
+                capped_value = Math.min(capped_value, volumeSlider1.value);
+            this.value = capped_value;
+
+            current_map = self.flows[slider_idx];
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = capped_value)
+            ));
+            self.flow_changed = true;
+        }
+
+    var volumeSlider2 = document.getElementById("control_volume_slider2");
+
+    if(volumeSlider2)
+        volumeSlider2.oninput = function(){
+            slider_idx = 2;
+            capped_value = 100;
+            flow = self.flows[slider_idx];
+            for (const [from, tos] of flow) {
+                for (const [to, value] of Object.entries(tos)) { // check all of the adjacency list
+                    var capacity;
+                    for(var i=0;i<self.connections.length;i++){ // finding capacity
+                        if(self.connections[i].from.id == from && self.connections[i].to.id == to)
+                            capacity = self.connections[i].capacity;
+                    }
+                    for(var i=0;i<self.flows.length;i++){ //check other flows
+                        if(i == slider_idx)
+                            continue;
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]) // If the edge exists for another type, decrease capacity
+                            capacity -= self.flows[i].get(from)[to];
+                    }
+                    capped_value = Math.min(capped_value, capacity);
+                }
+            }
+            if  (volumeSlider2.value < capped_value) // take the minimum of the maximum possible value and the slider value
+                capped_value = Math.min(capped_value, volumeSlider2.value);
+            this.value = capped_value;
+
+            current_map = self.flows[slider_idx];
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = capped_value)
+            ));
+            self.flow_changed = true;
+        }
+
+
+    var volumeSlider3 = document.getElementById("control_volume_slider3");
+
+    if(volumeSlider3)
+        volumeSlider3.oninput = function(){
+            slider_idx = 3;
+            capped_value = 100;
+            flow = self.flows[slider_idx];
+            for (const [from, tos] of flow) {
+                for (const [to, value] of Object.entries(tos)) { // check all of the adjacency list
+                    var capacity;
+                    for(var i=0;i<self.connections.length;i++){ // finding capacity
+                        if(self.connections[i].from.id == from && self.connections[i].to.id == to)
+                            capacity = self.connections[i].capacity;
+                    }
+                    for(var i=0;i<self.flows.length;i++){ //check other flows
+                        if(i == slider_idx)
+                            continue;
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]) // If the edge exists for another type, decrease capacity
+                            capacity -= self.flows[i].get(from)[to];
+                    }
+                    capped_value = Math.min(capped_value, capacity);
+                }
+            }
+            if  (volumeSlider3.value < capped_value) // take the minimum of the maximum possible value and the slider value
+                capped_value = Math.min(capped_value, volumeSlider3.value);
+            this.value = capped_value;
+
+            current_map = self.flows[slider_idx];
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = capped_value)
+            ));
+            self.flow_changed = true;
+        }
+
+    var volumeSlider4 = document.getElementById("control_volume_slider4");
+
+    if(volumeSlider4)
+        volumeSlider4.oninput = function(){
+            slider_idx = 4;
+            capped_value = 100;
+            flow = self.flows[slider_idx];
+            for (const [from, tos] of flow) {
+                for (const [to, value] of Object.entries(tos)) { // check all of the adjacency list
+                    var capacity;
+                    for(var i=0;i<self.connections.length;i++){ // finding capacity
+                        if(self.connections[i].from.id == from && self.connections[i].to.id == to)
+                            capacity = self.connections[i].capacity;
+                    }
+                    for(var i=0;i<self.flows.length;i++){ //check other flows
+                        if(i == slider_idx)
+                            continue;
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]) // If the edge exists for another type, decrease capacity
+                            capacity -= self.flows[i].get(from)[to];
+                    }
+                    capped_value = Math.min(capped_value, capacity);
+                }
+            }
+            if  (volumeSlider4.value < capped_value) // take the minimum of the maximum possible value and the slider value
+                capped_value = Math.min(capped_value, volumeSlider4.value);
+            this.value = capped_value;
+
+
+            current_map = self.flows[slider_idx];
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = capped_value)
+            ));
+            self.flow_changed = true;
+        }
+
+    var volumeSlider5 = document.getElementById("control_volume_slider5");
+
+    if(volumeSlider5)
+        volumeSlider5.oninput = function(){
+            slider_idx = 5;
+            capped_value = 100;
+            flow = self.flows[slider_idx];
+            for (const [from, tos] of flow) {
+                for (const [to, value] of Object.entries(tos)) { // check all of the adjacency list
+                    var capacity;
+                    for(var i=0;i<self.connections.length;i++){ // finding capacity
+                        if(self.connections[i].from.id == from && self.connections[i].to.id == to)
+                            capacity = self.connections[i].capacity;
+                    }
+                    for(var i=0;i<self.flows.length;i++){ //check other flows
+                        if(i == slider_idx)
+                            continue;
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]) // If the edge exists for another type, decrease capacity
+                            capacity -= self.flows[i].get(from)[to];
+                    }
+                    capped_value = Math.min(capped_value, capacity);
+                }
+            }
+            if  (volumeSlider5.value < capped_value) // take the minimum of the maximum possible value and the slider value
+                capped_value = Math.min(capped_value, volumeSlider5.value);
+            this.value = capped_value;
+
+
+            current_map = self.flows[slider_idx];
+            current_map.forEach((value, key, map) => ( 
+                Object.keys(value).forEach(v => value[v] = capped_value)
+            ));
+            self.flow_changed = true;
+        }
+
 
 }

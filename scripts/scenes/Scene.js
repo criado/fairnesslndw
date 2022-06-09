@@ -75,17 +75,17 @@ function BrainScene(){
 		// My Things
 		_update(self.neurons, timer);
 		//_update(self.flows); TODO do and check
-		_update(self.connections, timer);
+		_update(self.connections, timer, self);
         self.flow_changed = false;
 		_update(self.sprites, timer);
 		_update(self.flashes, timer);
         timer += 1;
 
 	};
-	var _update = function(array, timer){
+	var _update = function(array, timer, scene){
 		for(var i=0;i<array.length;i++){
 			var a = array[i];
-			a.update(timer);
+			a.update(timer, scene);
 			if(a.dead){
 				if(a.kill) a.kill();
 				array.splice(i,1);

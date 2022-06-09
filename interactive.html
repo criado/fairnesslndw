@@ -18,7 +18,31 @@
 				<div id="loading_bar_graphic"></div>
 			</div>
 		</div>
-		<canvas id="canvas" width="1700" height="900" loading="yes"></canvas>
+		<canvas id="canvas" width="2300" height="900" loading="yes"></canvas>
+
+        <div id="ui">
+        <div id="controls">
+        <input class="control_volume_slider" id="control_volume_slider0" type="range" orient="vertical" min="0" max="100" step="0.01" value="0"/>
+        <input class="control_volume_slider" id="control_volume_slider1" type="range" orient="vertical" min="0" max="100" step="0.01" value="100"/>
+        <input class="control_volume_slider" id="control_volume_slider2" type="range" orient="vertical" min="0" max="100" step="0.01" value="100"/>
+        <!-- External Libraries 
+        <input class="control_volume_slider" id="control_volume_slider3" type="range" orient="vertical" min="0" max="100" step="0.01" value="50"/>
+        <input class="control_volume_slider" id="control_volume_slider4" type="range" orient="vertical" min="0" max="100" step="0.01" value="50"/>
+        <input class="control_volume_slider" id="control_volume_slider5" type="range" orient="vertical" min="0" max="100" step="0.01" value="50"/>
+        <script>
+            //$("#control_volume_slider1").on("input change", function() {
+            $(".control_volume_slider").on("input change", function() {
+                if (this.value > 90){
+                    this.value = 90;
+                }
+                if (this.value < 10){
+                    this.value = 10;
+                }
+            });
+        </script>
+        External Libraries -->
+        </div>
+        </div>
 
         <!--
 		<div id="resume">

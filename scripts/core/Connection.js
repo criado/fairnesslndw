@@ -66,7 +66,7 @@ function Connection(scene){
 	};
 
 	// UPDATE
-	self.update = function(){
+	self.update = function(timer, scene){
 
 		// Pythagorean Distance
 		var dx = self.from.nx-self.to.nx;
@@ -78,9 +78,9 @@ function Connection(scene){
 		for(var i=0;i<self.pulses.length;i++){
 			var pulse = self.pulses[i];
 			pulse.distance += self.speed;
-            //if(scene.flow_changed){
-            //    pulse.flow = scene.flows[pulse.type][self.from.id.toString()]
-            //}
+            if(scene.flow_changed){
+                pulse.flow = scene.flows[pulse.type].get(self.from.id.toString())[self.to.id.toString()];
+            }
 
 			// Oh, you've reached the end?
 			if(pulse.distance>=distance){
@@ -150,7 +150,7 @@ function Connection(scene){
             fillStyle = colors[pulse.type];
 			ctx.fillStyle = fillStyle; // DAVID TODO use a dictionary that should be in the info that we serialize
 			ctx.beginPath();
-			ctx.arc(pulse.distance, offsetY, self.fullLineWidth*pulse.flow/100 *2, 0, 2*Math.PI, false);
+			ctx.arc(pulse.distance, offsetY, self.fullLineWidth*pulse.flow/100 *1.5, 0, 2*Math.PI, false);
 			ctx.fill();
 		}
 

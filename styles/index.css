@@ -33,7 +33,7 @@ body {
 }
 
 iframe{
-	/*display:block;*/
+	display:block;
 	margin: 10px auto 0 auto;
 	border: 1px solid #333;
 }
@@ -108,7 +108,3 @@ ul.share-buttons li:hover{
 	top:-5px;
 }
 
-.control_volume_slider{
-	height: 900px;
-    background: #d3d3d3;
-}
