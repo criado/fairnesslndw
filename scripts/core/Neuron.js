@@ -206,7 +206,7 @@ function Neuron(scene){
 
 	// CLICK & HOVER
 	//self.hoverAlpha = 0;
-    /*
+    /**/
 	self.isMouseOver = function(){
 
 		// Refractory period!
@@ -225,7 +225,7 @@ function Neuron(scene){
 			//publish("/neuron/click",[self]);
 		}
 	});
-    */
+    /**/
 
 	self.kill = function(){
 		unsubscribe(self.listener);

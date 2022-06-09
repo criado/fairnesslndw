@@ -89,6 +89,12 @@ Narrator.addStates({
 	PROP_CLICK_MORE:{
 		start:function(state){
             /*
+			state._listener = subscribe("/neuron/click",function(neuron){
+                unsubscribe(state._listener);
+                Narrator.goto("FEAR");
+            }
+            */
+            /*
 			state._ticker = -1;
 			state._clicked = 0;
 			state._listener = subscribe("/neuron/click",function(neuron){
@@ -96,7 +102,6 @@ Narrator.addStates({
 				if(state._ticker<0) state._ticker=40;
 				state._clicked++;
 				if(state._clicked==3){
-					unsubscribe(state._listener);
 					if(state._ticker>0){
 						Narrator.wait(0.5).talk("prop6","prop7").goto("FEAR");
 					}else{
@@ -118,14 +123,10 @@ Narrator.addStates({
         */
 	},
 
-	//FEAR:{
-	//	start:function(state){
-	//		Narrator.talk("prop11","prop12","prop13","prop14")
-	//				.scene("Anxiety")
-	//				.talk("fear0","fear1","fear2","fear3",
-	//					  "fear4","fear5","fear6","fear7")
-	//				.goto("HEBBIAN")
-	//	}
-	//}
+	FEAR:{
+		start:function(state){
+			Narrator.scene("Anxiety");
+		}
+	}
 
 });

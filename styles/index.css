@@ -27,10 +27,14 @@ body {
 	margin: 0;
 	background: #111;
 }
+.wrapper{
+  position: absolute;
+  left: 30;
+}
 
 iframe{
-	display:block;
-	margin: 50px auto 0 auto;
+	/*display:block;*/
+	margin: 10px auto 0 auto;
 	border: 1px solid #333;
 }
 
@@ -102,4 +106,9 @@ ul.share-buttons li{
 }
 ul.share-buttons li:hover{
 	top:-5px;
+}
+
+.control_volume_slider{
+	height: 900px;
+    background: #d3d3d3;
 }

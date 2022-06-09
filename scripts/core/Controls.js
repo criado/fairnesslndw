@@ -15,6 +15,7 @@ subscribe("/load",function(ratio){
 //// PLAY & PAUSE ////
 //////////////////////
 
+/*
 var play = document.getElementById("control_play");
 subscribe("/pause",function(){
 	if(Interactive.PLAYING){
@@ -55,6 +56,7 @@ resume_screen.onclick = function(){
 	Interactive.play();
 	_updatePauseUI();
 };
+*/
 
 //////////////////////
 /// VOLUME CONTROL ///
@@ -91,9 +93,9 @@ var _updateVolumeIcon = function(){
 	if(createjs.Sound.muted || createjs.Sound.volume==0){
 		state = 0;
 	}else{
-		state = Math.ceil(createjs.Sound.volume*3);
+		state = Math.ceil(createjs.Sound.volume*30);
 	}
-	state = 3-state;
+	state = 30-state;
 	volumeIcon.style.backgroundPosition = (-state*47)+"px 0px";
 };
 
@@ -110,67 +112,67 @@ volumeSlider.oninput = function(){
 //////////////////////
 
 // Icon
-var captionsIcon = document.getElementById("control_captions");
-var _lastLanguage = "en";
-captionsIcon.onclick = function(){
-	if(CAPTION_LANGUAGE==""){
-		CAPTION_LANGUAGE = _lastLanguage;
-	}else{
-		_lastLanguage = CAPTION_LANGUAGE;
-		CAPTION_LANGUAGE = "";
-	}
-	_updateCaptionsUI();
-};
-var _updateCaptionsUI = function(){
-	captionsIcon.style.backgroundPosition = (CAPTION_LANGUAGE=="") ? "47px 0px" : "0px 0px";
-	captionsSelect.value = CAPTION_LANGUAGE;
-};
-
-// The list
-var captionsSelect = document.getElementById("control_captions_select");
-
-// Populate List. Also, the default option.
-var languageList = [{
-	value: "",
-	label: "None"
-}];
-for(var languageID in window.Captions){
-	var language = Captions[languageID];
-	languageList.push({
-		value: languageID,
-		label: language.label
-	});
-}
-languageList = languageList.sort((a,b)=>{ return a.label.localeCompare(b.label) }); // SORT
-var html = "";
-for(var i=0;i<languageList.length;i++){
-	var language = languageList[i];
-	html += '<option '+(language.value==CAPTION_LANGUAGE ? 'selected ' : '')+
-					'value="'+language.value+'">'+
-					language.label+
-					'</option>';
-}
-captionsSelect.innerHTML = html;
-
-// When the language is changed...
-captionsSelect.onchange = function(){
-	CAPTION_LANGUAGE = captionsSelect.value;
-	_updateCaptionsUI();
-};
-
-// IF THERE IS A ?lang=es var, set to THAT.
-function getParameterByName(name){
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(window.top.location.search); // TOP.
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-var lang = getParameterByName("lang");
-if(lang && window.Captions[lang]){
-	captionsSelect.value = lang;
-	CAPTION_LANGUAGE = captionsSelect.value;
-	_updateCaptionsUI();
-}
+//var captionsIcon = document.getElementById("control_captions");
+//var _lastLanguage = "en";
+//captionsIcon.onclick = function(){
+//	if(CAPTION_LANGUAGE==""){
+//		CAPTION_LANGUAGE = _lastLanguage;
+//	}else{
+//		_lastLanguage = CAPTION_LANGUAGE;
+//		CAPTION_LANGUAGE = "";
+//	}
+//	_updateCaptionsUI();
+//};
+//var _updateCaptionsUI = function(){
+//	captionsIcon.style.backgroundPosition = (CAPTION_LANGUAGE=="") ? "47px 0px" : "0px 0px";
+//	captionsSelect.value = CAPTION_LANGUAGE;
+//};
+//
+//// The list
+//var captionsSelect = document.getElementById("control_captions_select");
+//
+//// Populate List. Also, the default option.
+//var languageList = [{
+//	value: "",
+//	label: "None"
+//}];
+//for(var languageID in window.Captions){
+//	var language = Captions[languageID];
+//	languageList.push({
+//		value: languageID,
+//		label: language.label
+//	});
+//}
+//languageList = languageList.sort((a,b)=>{ return a.label.localeCompare(b.label) }); // SORT
+//var html = "";
+//for(var i=0;i<languageList.length;i++){
+//	var language = languageList[i];
+//	html += '<option '+(language.value==CAPTION_LANGUAGE ? 'selected ' : '')+
+//					'value="'+language.value+'">'+
+//					language.label+
+//					'</option>';
+//}
+//captionsSelect.innerHTML = html;
+//
+//// When the language is changed...
+//captionsSelect.onchange = function(){
+//	CAPTION_LANGUAGE = captionsSelect.value;
+//	_updateCaptionsUI();
+//};
+//
+//// IF THERE IS A ?lang=es var, set to THAT.
+//function getParameterByName(name){
+//    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+//    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+//        results = regex.exec(window.top.location.search); // TOP.
+//    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+//}
+//var lang = getParameterByName("lang");
+//if(lang && window.Captions[lang]){
+//	captionsSelect.value = lang;
+//	CAPTION_LANGUAGE = captionsSelect.value;
+//	_updateCaptionsUI();
+//}
 
 })();
 

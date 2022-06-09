@@ -74,6 +74,7 @@ div, canvas{
 
 /** CAPTIONS **/
 
+/*
 #captions{
 	cursor: default;
     position: absolute;
@@ -91,6 +92,7 @@ div, canvas{
     padding: 2px 5px;
     border-radius: 5px;
 }
+*/
 
 /** RESUME **/
 
@@ -160,11 +162,6 @@ div, canvas{
 	height: 40px;
 	background-image: url(../assets/ui/volume.png);
 	cursor: pointer;
-}
-#control_volume_slider{
-	float: left;
-	width: 50px;
-    margin-top: 13px;
 }
 #control_captions{
 	float: right;

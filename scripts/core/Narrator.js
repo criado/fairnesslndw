@@ -175,8 +175,8 @@ window.Narrator = new (function(){
 	};
 
 	// UPDATE 
-	self.captionsDOM = document.getElementById("captions");
-	self.captionsText = document.querySelector("#captions > span");
+	//self.captionsDOM = document.getElementById("captions");
+	//self.captionsText = document.querySelector("#captions > span");
 	self.update = function(){
 
 		// During!
@@ -185,36 +185,36 @@ window.Narrator = new (function(){
 		}
 
 		// Currently chosen language.
-		var chosenLanguageID = CAPTION_LANGUAGE;
+		//var chosenLanguageID = CAPTION_LANGUAGE;
 
-		// If language is "", that means None.
-		if(chosenLanguageID==""){
-			self.hideCaption();
-			return;
-		}
+		//// If language is "", that means None.
+		//if(chosenLanguageID==""){
+		//	self.hideCaption();
+		//	return;
+		//}
 
 		// Otherwise, find the currently playing voice clip.
 		// If none, no captions.
-		var markerID = null;
-		for(var i=0;i<self.soundInstances.length;i++){
-			var soundInstance = self.soundInstances[i];
-			if(soundInstance._TYPE_=="voice"){
-				markerID = soundInstance._MARKER_ID_;
-				break;
-			}
-		}
-		if(!markerID){
-			self.hideCaption();
-			return;
-		}
+		//var markerID = null;
+		//for(var i=0;i<self.soundInstances.length;i++){
+		//	var soundInstance = self.soundInstances[i];
+		//	if(soundInstance._TYPE_=="voice"){
+		//		markerID = soundInstance._MARKER_ID_;
+		//		break;
+		//	}
+		//}
+		//if(!markerID){
+		//	self.hideCaption();
+		//	return;
+		//}
 
-		// But if there is, show that caption! (and if not, hiiiide it)
-		var caption = Captions[chosenLanguageID].captions[markerID];
-		if(caption && caption!=""){
-			self.showCaption(caption);
-		}else{
-			self.hideCaption();
-		}
+		//// But if there is, show that caption! (and if not, hiiiide it)
+		//var caption = Captions[chosenLanguageID].captions[markerID];
+		//if(caption && caption!=""){
+		//	self.showCaption(caption);
+		//}else{
+		//	self.hideCaption();
+		//}
 
 	};
 	self.showCaption = function(caption){
