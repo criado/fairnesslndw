@@ -22,7 +22,7 @@
 	    Mouse.pressed = true;
 	    onMouseMove(event);
 	    publish("/mouse/click"); // ALSO a click, why not.
-	    publish("/mouse/down");
+	    //publish("/mouse/down");
 	},false);
 
 	canvas.addEventListener("mouseup",function(event){
@@ -52,7 +52,6 @@
 
 	},false);
 
-	/*
 	canvas.addEventListener("touchstart",function(event){
 	    Mouse.pressed = true;
 	    onTouchMove(event);
@@ -69,6 +68,5 @@
 		Mouse.y = event.changedTouches[0].clientY;
 		publish("/mouse/move");
 	},false);
-	*/
 
 })(window);

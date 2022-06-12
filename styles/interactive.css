@@ -77,13 +77,13 @@ div, canvas{
 
 /** CAPTIONS **/
 
-/*
 #captions{
 	cursor: default;
     position: absolute;
-    width: 100%;
+    width: 65%;
     text-align: center;
-    bottom: 50px;
+    bottom: 10px;
+    left: 100px;
     display: none;
 }
 #captions > span{
@@ -95,7 +95,12 @@ div, canvas{
     padding: 2px 5px;
     border-radius: 5px;
 }
-*/
+#control_captions_select{
+	float:left;
+	width: 100px;
+	margin-top: 12px;
+	margin-right: 10px;
+}
 
 /** RESUME **/
 
@@ -147,13 +152,13 @@ div, canvas{
 .control_volume_slider{
     float: left;
 	height: 890px;
-    width: 20px;
+    width: 25px;
     background: #d3d3d3;
 }
 
 .control_volume_slider::-moz-range-thumb {
-  width: 20;
-  height: 20;
+  width: 25;
+  height: 25;
   border: 0;
   cursor: pointer;
   /* background: url('./../assets/ui/happy.png'); */
@@ -161,32 +166,50 @@ div, canvas{
 }
 
 
-#control_volume_slider0::-moz-range-progress {
+#control_volume_slider_0::-moz-range-progress {
   background-color: #ff0000; 
   width: 100%;
 }
 
-#control_volume_slider1::-moz-range-progress {
+#control_volume_slider_1::-moz-range-progress {
   background-color: #00ff00; 
   width: 100%;
 }
-#control_volume_slider2::-moz-range-progress {
-  background-color: #0000ff; 
+#control_volume_slider_2::-moz-range-progress {
+  background-color: #3366ff; 
   width: 100%;
 }
-#control_volume_slider3::-moz-range-progress {
+#control_volume_slider_3::-moz-range-progress {
   background-color: #ffff00; 
   width: 100%;
 }
 
-#control_volume_slider4::-moz-range-progress {
+#control_volume_slider_4::-moz-range-progress {
   background-color: #ff00ff; 
   width: 100%;
 }
-#control_volume_slider5::-moz-range-progress {
+#control_volume_slider_5::-moz-range-progress {
   background-color: #00ffff; 
   width: 100%;
 }
+
+.vertical-progress-bar {
+  height: 850px;
+  width: 40px;
+  border: 1px solid black;
+  background-color: #ddd;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  rotate(180deg);
+}
+
+.vertical-progress {
+  width: 40px;
+  background-color: orange;
+  float: bottom;
+}
+
 
 /** CONTROLS **/
 
@@ -225,11 +248,5 @@ div, canvas{
 	height: 40px;
 	background-image: url(../assets/ui/captions.png);
 	cursor: pointer;
-}
-#control_captions_select{
-	float:right;
-	width: 100px;
-	margin-top: 12px;
-	margin-right: 10px;
 }
 */

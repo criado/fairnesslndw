@@ -129,39 +129,36 @@ volumeSlider.oninput = function(){
 //	captionsSelect.value = CAPTION_LANGUAGE;
 //};
 //
-//// The list
-//var captionsSelect = document.getElementById("control_captions_select");
-//
-//// Populate List. Also, the default option.
-//var languageList = [{
-//	value: "",
-//	label: "None"
-//}];
-//for(var languageID in window.Captions){
-//	var language = Captions[languageID];
-//	languageList.push({
-//		value: languageID,
-//		label: language.label
-//	});
-//}
-//languageList = languageList.sort((a,b)=>{ return a.label.localeCompare(b.label) }); // SORT
-//var html = "";
-//for(var i=0;i<languageList.length;i++){
-//	var language = languageList[i];
-//	html += '<option '+(language.value==CAPTION_LANGUAGE ? 'selected ' : '')+
-//					'value="'+language.value+'">'+
-//					language.label+
-//					'</option>';
-//}
-//captionsSelect.innerHTML = html;
-//
-//// When the language is changed...
-//captionsSelect.onchange = function(){
-//	CAPTION_LANGUAGE = captionsSelect.value;
-//	_updateCaptionsUI();
-//};
-//
-//// IF THERE IS A ?lang=es var, set to THAT.
+// The list
+var captionsSelect = document.getElementById("control_captions_select");
+
+// Populate List. Also, the default option.
+var languageList = [];
+for(var languageID in window.Captions){
+	var language = Captions[languageID];
+	languageList.push({
+		value: languageID,
+		label: language.label
+	});
+}
+languageList = languageList.sort((a,b)=>{ return a.label.localeCompare(b.label) }); // SORT
+var html = "";
+for(var i=0;i<languageList.length;i++){
+	var language = languageList[i];
+	html += '<option '+(language.value==CAPTION_LANGUAGE ? 'selected ' : '')+
+					'value="'+language.value+'">'+
+					language.label+
+					'</option>';
+}
+captionsSelect.innerHTML = html;
+
+// When the language is changed...
+captionsSelect.onchange = function(){
+	CAPTION_LANGUAGE = captionsSelect.value;
+	_updateCaptionsUI();
+};
+
+// IF THERE IS A ?lang=es var, set to THAT.
 //function getParameterByName(name){
 //    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 //    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),

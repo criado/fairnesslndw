@@ -102,7 +102,7 @@ function Connection(scene){
 
 	self.strokeStyle = "#aaaaaa";
 	self.strokeStyleSaturated = "#ffaaaa";
-	self.fullLineWidth = 30;
+	self.fullLineWidth = 45;
 	self.lineWidth = self.fullLineWidth * (self.capacity/100);
 	self.easedLineWidth = self.lineWidth;
 	self.pulseRadius = 8;
@@ -135,7 +135,8 @@ function Connection(scene){
                 if(self.scene.flows[i].get(from) && self.scene.flows[i].get(from)[to])// If the edge exists, decrease  
                     capacity -= self.scene.flows[i].get(from)[to];
             }
-            ctx.strokeStyle = capacity > 0 ? self.strokeStyle : self.strokeStyleSaturated;
+            // TODO have the eps variable be accesible from here and substitute 0.2 by eps/2 or so 
+            ctx.strokeStyle = capacity > 0.2 ? self.strokeStyle : self.strokeStyleSaturated;
 
 			// draw a line
 			var offsetY = 0;
@@ -154,7 +155,7 @@ function Connection(scene){
 		// draw all pulses
 		for(var i=0;i<self.pulses.length;i++){
 			var pulse = self.pulses[i];
-            colors = ['#f00', '#0f0', '#00f','#ff0','#f0f','#0ff','#fff' ];
+            colors = ['#f00', '#0f0', '#36f','#ff0','#f0f','#0ff','#fff' ];
             fillStyle = colors[pulse.type];
 			ctx.fillStyle = fillStyle; // DAVID TODO use a dictionary that should be in the info that we serialize
 			ctx.beginPath();

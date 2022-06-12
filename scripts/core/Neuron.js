@@ -16,6 +16,8 @@ function Neuron(scene){
 	//self.receivers = [];
 	self.startingStrength = 3;
     //self.highlight = 0;
+    //
+    self.sprites = [images.neuron_body, images.server0, images.user0, images.server1, images.user1, images.server2, images.user2, images.server3, images.user3, images.server4, images.user4, images.server5, images.user5]
 
 	// Hebbian
 	//self.hebbian = 0;
@@ -204,7 +206,7 @@ function Neuron(scene){
 
 	// CLICK & HOVER
 	//self.hoverAlpha = 0;
-    /**/
+    /*
 	self.isMouseOver = function(){
 
 		// Refractory period!
@@ -223,11 +225,11 @@ function Neuron(scene){
 			//publish("/neuron/click",[self]);
 		}
 	});
-    /**/
 
 	self.kill = function(){
 		unsubscribe(self.listener);
 	};
+    */
 
 
 	// Animation
@@ -239,9 +241,6 @@ function Neuron(scene){
 	//self.wobbleRadius = Math.random();
 	//self.wobbleVelocity = Math.random()*2-1;
 	self.ticker = 0;
-
-	// Draw
-	self.body_image = images.neuron_body;
 
 	// Highlight
 	self.highlightRadius = 25;
@@ -272,7 +271,7 @@ function Neuron(scene){
 		//ctx.globalAlpha = self.hoverAlpha;
 		//ctx.drawImage(images.neuron_hover,-60,-60);
 		ctx.globalAlpha = 1;
-		ctx.drawImage(self.body_image,-50,-50);
+        ctx.drawImage(self.sprites[self.type+1],-50,-50);
 		//ctx.globalAlpha = self.highlight;
 		//ctx.drawImage(images.neuron_highlight,-50,-50);
 		ctx.restore();
@@ -310,7 +309,7 @@ Neuron.add = function(x,y,type,scene){
 	var neuron = new Neuron(scene);
 	neuron.x = x;
 	neuron.y = y;
-	neuron.scale = 0.5;
+	neuron.scale = 0.75;
     neuron.type = type
 	neuron.clickable = true;
 
@@ -376,12 +375,16 @@ Neuron.serialize = function(scene,detailed){
 
 };
 
-Neuron.unserialize = function(scene,string,detailed){
+Neuron.load_scene_data = function(scene,string,detailed){
+
+    scene.neurons = [];
+    scene.connections = [];
+    scene.flows = [];
 
 	// Prepare input
 	var input = JSON.parse(string);
-
     scene.phases = input.phases; // just to emit the balls at different phases
+
 
 	// Create neurons
 	for(var i=0;i<input.neurons.length;i++){
@@ -409,8 +412,23 @@ Neuron.unserialize = function(scene,string,detailed){
 
     controls = document.getElementById("controls")
     for(var i=0;i<input.initial.length;i++){
-        controls.innerHTML += `<input class="control_volume_slider" id="control_volume_slider${i}" style="--img-path:url(\'./../assets/ui/sad.png\')" type="range" orient="vertical" min="0" max="100" step="0.1" value="${input.initial[i]}" />`;
+        controls.innerHTML += `<input class="control_volume_slider" id="control_volume_slider_${i}" style="--img-path:url(\'./../assets/ui/sad.png\')" type="range" orient="vertical" min="0" max="100" step="0.4" value="${input.initial[i]}" />`;
     }
+
+    total_util_bar = document.getElementById("total_utility")
+    sum = input.utilit_sol;
+    for(var i=0;i<input.initial.length;i++){
+        sum -= input.initial[i];
+    }
+    colors = ['#f00', '#0f0', '#36f','#ff0','#f0f','#0ff','#fff' ];
+
+
+    total_util_bar.innerHTML += `<div class="vertical-progress" id="util_background" style="background-color: #ddd; height:${100*sum/input.utilit_sol}%;"></div>`;
+    for(var i=0;i<input.initial.length;i++){
+        total_util_bar.innerHTML += `<div class="vertical-progress" id="util_${i}" style="background-color: ${colors[i]}; height:${100*input.initial[i]/input.utilit_sol}%;"></div>`;
+    }
+
+    scene.utilit_sol = input.utilit_sol;
     scene.optimal = input.optimal; // Optimal (approximate) values. It is important that our approximate solution is feasible, otherwise we might not have a feasible solution being in the ell-infinity box \Pi[optimal[i]-eps]. Although our eps is quite large, so probably we won't have any problems in any case.
 
 };

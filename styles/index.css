@@ -44,7 +44,7 @@ iframe{
 	background: #333;
 	margin: 0px auto 50px auto;
 	padding: 50px;
-	width:860px;
+	width:1000px;
 	color:#fff;
 
 	font-size: 20px;
@@ -72,6 +72,9 @@ iframe{
 #bonus{
 	background: none;
 	margin: 0px auto 0px auto;
+}
+p{
+	color: #ffffff;
 }
 a{
 	color: #dd3838;

@@ -46,8 +46,8 @@ function BrainScene(){
 	self.connections = [];
 	self.flows = [];
     self.flow_changed = false;
-	self.flashes = [];
-	self.sprites = [];
+	//self.flashes = [];
+	//self.sprites = [];
 
 	// ADDING A SHADE
 //	self.shade = new Sprite({
@@ -69,16 +69,21 @@ function BrainScene(){
     var timer = 0; // Frame counter, 30 frames per second
 	self.update = function(){
 
+        if (self.won){
+            publish("/level/won",[self]);
+            self.won = false;
+        }
+
 		// Camera
 		_prevUpdate.call(self);
 
 		// My Things
 		_update(self.neurons, timer);
-		//_update(self.flows); TODO do and check
+		//_update(self.flows); In principle the sliders are updating the flows. so I don't need this
 		_update(self.connections, timer, self);
         self.flow_changed = false;
-		_update(self.sprites, timer);
-		_update(self.flashes, timer);
+		//_update(self.sprites, timer);
+		//_update(self.flashes, timer);
         timer += 1;
 
 	};
@@ -105,8 +110,9 @@ function BrainScene(){
 		// My Things
 		_render(self.connections,ctx);
 		_render(self.neurons,ctx);
-		_render(self.flashes,ctx);
-		_render(self.sprites,ctx);
+		//_render(self.flashes,ctx);
+		//_render(self.sprites,ctx);
+
 
 		// Restore
 		ctx.restore();
@@ -117,10 +123,11 @@ function BrainScene(){
 	};
 
 	// KILL: Neurons & sprites
-	self.kill = function(){
-		for(var i=0;i<self.neurons.length;i++) self.neurons[i].kill();
-		for(var i=0;i<self.sprites.length;i++) self.sprites[i].kill();
-	};
+    //
+	//self.kill = function(){
+	//	for(var i=0;i<self.neurons.length;i++) self.neurons[i].kill();
+	//	for(var i=0;i<self.sprites.length;i++) self.sprites[i].kill();
+	//};
 
 }
 

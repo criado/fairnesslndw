@@ -11,6 +11,7 @@ window.Interactive = new (function(){
 	self.scene = null;
 	self.transitionCallback = null;
 	self.transitionToScene = null;
+	self.level_map = null;
 
 	// Init, Goto, Update, Render
 	self.init = function(){
@@ -19,7 +20,7 @@ window.Interactive = new (function(){
 	};
 	self.goto = function(SceneClass){
 		if(self.scene && self.scene.kill) self.scene.kill(); // kill last scene.
-		self.scene = new SceneClass();
+		self.scene = new SceneClass(self.level_map);
 		if(self.scene.transitionIn) self.scene.transitionIn();
 	};
 	self.update = function(){
@@ -39,9 +40,10 @@ window.Interactive = new (function(){
 
 		// If Scene Transition is done, go to that.
 		if(self.transitionCallback && self.transitionCallback()){
-			self.goto(self.transitionToScene);
+			self.goto(self.transitionToScene, self.level_map);
 			self.transitionCallback = null;
 			self.transitionToScene = null;
+			self.level_map = null;
 		}
 
 	};
@@ -57,7 +59,8 @@ window.Interactive = new (function(){
 	};
 
 	// Scene Transitions
-	self.transitionTo = function(SceneClass){
+	self.transitionTo = function(SceneClass, level_map){
+        self.level_map = level_map;
 
 		if(self.scene && self.scene.transitionOut){
 			self.transitionCallback = self.scene.transitionOut();

@@ -11,8 +11,8 @@
 
 
 // lvl 2 is already a classic
-var NEURONS_SERIALIZED='{"neurons":[[70, 200, 6], [200, 200, -1], [200,100, 8], [300,200,-1], [300,100,9], [412,200,-1],[412,100,10],[512,200,-1],[512,100,11], [630,200,9], [70,300,0], [70,400,-1], [350,300,2], [350,400,-1], [630,300,4], [630,400,-1], [350, 500, -1], [70,700,1], [350,700,3], [630,700,5], [350, 600, -1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100], [10, 11, 70], [12, 13, 30], [14, 15, 20], [11, 16, 30], [13, 16, 30], [15, 16, 30], [20, 17, 100], [20, 18, 100], [20, 19, 100], [16, 20, 100]],"flows":[{"10":{"11":0},"11":{"16":0},"16":{"20":0},"20":{"17":0}},{"12":{"13":0},"13":{"16":0},"16":{"20":0},"20":{"18":0}},{"14":{"15":0},"15":{"16":0},"16":{"20":0},"20":{"19":0}},{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":100}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}],"initial":[0, 0, 0, 0, 100, 100],"optimal":[20, 20, 20, 50, 50, 50],"phases":[0,0,8, 0, 0, 0]}';
-//var NEURONS_SERIALIZED='{"neurons":[[70, 200, 0], [200, 200, -1], [200,100, 2], [300,200,-1], [300,100,3], [412,200,-1],[412,100,4],[512,200,-1],[512,100,5], [630,200,1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100]],"flows":[{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":100}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}],"initial":[0, 100, 100],"optimal":[50, 50, 50]}';
+//var level_map_1_2='{"neurons":[[70, 200, 6], [200, 200, -1], [200,100, 8], [300,200,-1], [300,100,9], [412,200,-1],[412,100,10],[512,200,-1],[512,100,11], [630,200,9], [70,300,0], [70,400,-1], [350,300,2], [350,400,-1], [630,300,4], [630,400,-1], [350, 500, -1], [70,700,1], [350,700,3], [630,700,5], [350, 600, -1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100], [10, 11, 70], [12, 13, 30], [14, 15, 20], [11, 16, 30], [13, 16, 30], [15, 16, 30], [20, 17, 100], [20, 18, 100], [20, 19, 100], [16, 20, 100]],"flows":[{"10":{"11":0},"11":{"16":0},"16":{"20":0},"20":{"17":0}},{"12":{"13":0},"13":{"16":0},"16":{"20":0},"20":{"18":0}},{"14":{"15":0},"15":{"16":0},"16":{"20":0},"20":{"19":0}},{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":100}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}],"initial":[0, 0, 0, 0, 100, 100],"optimal":[20, 20, 20, 50, 50, 50],"phases":[0,0,8, 0, 0, 0]}';
+//var level_map_2='{"neurons":[[70, 200, 0], [200, 200, -1], [200,100, 2], [300,200,-1], [300,100,3], [412,200,-1],[412,100,4],[512,200,-1],[512,100,5], [630,200,1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100]],"flows":[{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":100}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}],"initial":[0, 100, 100],"optimal":[50, 50, 50]}';
 //  
 // I just initialized it to the 0 100 100 initial state ~~For this test I am sending info that is half of the capacity~~
 
@@ -134,19 +134,26 @@ var NEURONS_SERIALIZED='{"neurons":[[70, 200, 6], [200, 200, -1], [200,100, 8], 
 //
 //}
 
-function Scene_Propagation(){
+function Scene_Propagation(level_map){
 
 	var self = this;
 	BrainScene.call(self);
 
 
     // TODO we could improve the efficiency of this with better data structures
-    var eps = 0.09;// This is slightly lower than 0.1 which is the current precision of the slider. It seems to work well
+    var eps = 0.39;// This is slightly lower than 0.1 which is the current precision of the slider. It seems to work well
     self.cap_and_update_happiness = function(cap_all, slider){
-        if(slider)
-            slider_idx = slider.id[slider.id.length-1]; // I'm assuming that the number of sliders <= 10 here
+        if(slider){
+            arr = slider.id.split("_");
+            slider_idx = parseInt(arr[arr.length-1]);
+        }
+        else{
+            slider_idx = 0;
+        }
         everyone_happy = true;
-        for(var k=0;k<self.flows.length;k++){ 
+
+        var sum_utils = self.utilit_sol;
+        for(var k=slider_idx, l=0;l<self.flows.length;k=((k+1)%self.flows.length),l+=1){  // we start from slider_idx so the value of the slider is updated, which is needed to correctly compute the happiness of the others
             cap_this_one = (slider && k.toString() == slider_idx) || cap_all;
             capped_value = 100; // 100 is the maximum value we allowed for the capacities, so it is a bound on the flow as well
             flow = self.flows[k];
@@ -160,16 +167,21 @@ function Scene_Propagation(){
                     for(var i=0;i<self.flows.length;i++){ //check how much remaining capacity we have after substracting other flows
                         if(i == k)
                             continue;
-                        if(self.flows[i].get(from) && self.flows[i].get(from)[to])// If the edge exists for another type, decrease capacity
+                        if(self.flows[i].get(from) && self.flows[i].get(from)[to]){// If the edge exists for another type, decrease capacity
                             capacity -= self.flows[i].get(from)[to];
+                        }
                     }
                     capped_value = Math.min(capacity, capped_value);
                 }
             }
-            slider_k = document.getElementById("control_volume_slider"+k.toString());
+            capped_value = parseFloat(parseFloat(capped_value).toFixed(2));
+            slider_k = document.getElementById("control_volume_slider_"+k.toString());
             //compute happiness of current slider // We could prune by checking which sliders are independent from the current one
             actual_value = cap_this_one ? Math.min(capped_value, slider_k.value) :  slider_k.value; // The current slider hasn't been capped yet
-            happy = capped_value <= slider_k.value && actual_value >= self.optimal[k]-eps;
+            sum_utils -= actual_value;
+            console.log("actual_value", k, actual_value);
+            console.log("sum_utils", sum_utils);
+            happy = capped_value <= parseFloat(slider_k.value) && actual_value >= self.optimal[k]-eps;
             everyone_happy &= happy;
             if(happy){
                 if (slider_k.style != "--img-path:url('./../assets/ui/happy.png')");
@@ -190,22 +202,27 @@ function Scene_Propagation(){
                 self.flow_changed = true;
             }
         }
+        colors = ['#f00', '#0f0', '#36f','#ff0','#f0f','#0ff','#fff'];
+        document.getElementById("util_background").style=`background-color: #ddd; height:${100*sum_utils/self.utilit_sol}%;`
+        for(var k=0;k<self.flows.length;k+=1){
+            value_k = document.getElementById("control_volume_slider_"+k.toString()).value;
+            util_bar_k = document.getElementById("util_"+k.toString()).style=`background-color: ${colors[k]}; height:${100*value_k/self.utilit_sol}%;`;
+            console.log("percentage for index", k, 100*value_k/self.utilit_sol);
+        }
         if(everyone_happy){
             self.won = true;
             console.log('You won!');
         }
     };
 
-	// Whee! One that looks nice & uniform and no "boring" neurons
-	Neuron.unserialize(self,NEURONS_SERIALIZED);
+	Neuron.load_scene_data(self,level_map);
 
     // We define the oninput of all the sliders
     for(var l=0;l<self.flows.length;l++){
-        document.getElementById("control_volume_slider"+l.toString()).oninput = function(){
+        document.getElementById("control_volume_slider_"+l.toString()).oninput = function(){
             self.cap_and_update_happiness(false, this);
         }; 
     }
-    // TODO if everyone is happy, set scene.won == true, and maybe write something and transition onto next thing.
 
     // Set initial happiness and cap if we made a mistake when setting the initial values
     self.cap_and_update_happiness(true);
@@ -218,10 +235,14 @@ function Scene_Propagation(){
 	self.transitionIn = function(){
 		self.cameraEased.zoom = 0.2;
 	};
-    // TODO here in the transition out or somewhere else, we should delete the previous sliders
 	self.transitionOut = function(){
+        document.getElementById("util_background").remove();
+        for(var l=0;l<self.flows.length;l++){
+            document.getElementById("control_volume_slider_"+l.toString()).remove();
+            document.getElementById("util_"+l.toString()).remove();
+        }
 		// NEURONS_SERIALIZED = Neuron.serialize(self,true);
-		self.camera.x = 1600; // DAVID: This is just to transition out, it takes you out of the scene, then the scene is killed, a new one is loaded and there is a transition in
+		self.camera.x = 3000; // DAVID: This is just to transition out, it takes you out of the scene, then the scene is killed, a new one is loaded and there is a transition in
 		return function(){return (self.cameraEased.x>1600);}; // done when this is
 	};
 
