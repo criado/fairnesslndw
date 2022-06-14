@@ -124,11 +124,11 @@ volumeSlider.oninput = function(){
 //	}
 //	_updateCaptionsUI();
 //};
-//var _updateCaptionsUI = function(){
-//	captionsIcon.style.backgroundPosition = (CAPTION_LANGUAGE=="") ? "47px 0px" : "0px 0px";
-//	captionsSelect.value = CAPTION_LANGUAGE;
-//};
-//
+var _updateCaptionsUI = function(){
+	//captionsIcon.style.backgroundPosition = (CAPTION_LANGUAGE=="") ? "47px 0px" : "0px 0px";
+	captionsSelect.value = CAPTION_LANGUAGE;
+};
+
 // The list
 var captionsSelect = document.getElementById("control_captions_select");
 

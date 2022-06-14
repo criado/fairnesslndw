@@ -77,13 +77,28 @@ div, canvas{
 
 /** CAPTIONS **/
 
+#control_captions_wrapper{
+	position: absolute;
+    left: 10px;
+    /*top: 0;*/
+	bottom: 0;
+	width: 100px;
+	height: 50px;
+}
+#control_captions_select{
+	float:left;
+	width: 100px;
+	margin-top: 12px;
+	margin-right: 10px;
+}
+
 #captions{
 	cursor: default;
     position: absolute;
-    width: 65%;
+    width: 62%;
     text-align: center;
     bottom: 10px;
-    left: 100px;
+    left: 120px;
     display: none;
 }
 #captions > span{
@@ -94,12 +109,6 @@ div, canvas{
     color:#fff;
     padding: 2px 5px;
     border-radius: 5px;
-}
-#control_captions_select{
-	float:left;
-	width: 100px;
-	margin-top: 12px;
-	margin-right: 10px;
 }
 
 /** RESUME **/
@@ -194,7 +203,7 @@ div, canvas{
 }
 
 .vertical-progress-bar {
-  height: 850px;
+  height: 800px;
   width: 40px;
   border: 1px solid black;
   background-color: #ddd;

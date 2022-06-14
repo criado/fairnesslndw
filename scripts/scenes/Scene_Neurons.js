@@ -179,8 +179,8 @@ function Scene_Propagation(level_map){
             //compute happiness of current slider // We could prune by checking which sliders are independent from the current one
             actual_value = cap_this_one ? Math.min(capped_value, slider_k.value) :  slider_k.value; // The current slider hasn't been capped yet
             sum_utils -= actual_value;
-            console.log("actual_value", k, actual_value);
-            console.log("sum_utils", sum_utils);
+            //console.log("actual_value", k, actual_value);
+            //console.log("sum_utils", sum_utils);
             happy = capped_value <= parseFloat(slider_k.value) && actual_value >= self.optimal[k]-eps;
             everyone_happy &= happy;
             if(happy){
@@ -207,7 +207,7 @@ function Scene_Propagation(level_map){
         for(var k=0;k<self.flows.length;k+=1){
             value_k = document.getElementById("control_volume_slider_"+k.toString()).value;
             util_bar_k = document.getElementById("util_"+k.toString()).style=`background-color: ${colors[k]}; height:${100*value_k/self.utilit_sol}%;`;
-            console.log("percentage for index", k, 100*value_k/self.utilit_sol);
+            //console.log("percentage for index", k, 100*value_k/self.utilit_sol);
         }
         if(everyone_happy){
             self.won = true;

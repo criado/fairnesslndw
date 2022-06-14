@@ -60,7 +60,7 @@ Narrator.addStates({
 
 	INTRO:{
 		start:function(state){
-            Narrator.showCaption(window.Captions["en"].captions["intro0"]);
+            Narrator.showCaption("intro0");
             state._listener = subscribe("/mouse/click",function(scene){
                 unsubscribe(state._listener);
                 //await new Promise(r => setTimeout(r, 500)); // wait half a second to avoid double clicks?
@@ -73,9 +73,10 @@ Narrator.addStates({
 	INTRO_1:{
 		start:function(state){
 			Narrator.scene("Propagation", level_intro);
-            Narrator.showCaption(window.Captions["en"].captions["intro1"]);
+            Narrator.showCaption("intro1");
             state._listener = subscribe("/mouse/click",function(scene){
                 unsubscribe(state._listener);
+                console.log("I've been here");
                 Narrator.hideCaption();
                 Narrator.goto("LEVEL1");
             });
@@ -86,10 +87,10 @@ Narrator.addStates({
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_4)
-            Narrator.showCaption(window.Captions["en"].captions["during1"]);
+            Narrator.showCaption("during1");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
-                Narrator.showCaption(window.Captions["en"].captions["conclusion1"]);
+                Narrator.showCaption("conclusion1");
                 state._listener = subscribe("/mouse/down",function(scene){
                     unsubscribe(state._listener);
                     Narrator.hideCaption();
@@ -103,10 +104,10 @@ Narrator.addStates({
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_2)
-            Narrator.showCaption(window.Captions["en"].captions["during2"]);
+            Narrator.showCaption("during2");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
-                Narrator.showCaption(window.Captions["en"].captions["conclusion2"]);
+                Narrator.showCaption("conclusion2");
                 state._listener = subscribe("/mouse/down",function(scene){
                     unsubscribe(state._listener);
                     Narrator.hideCaption();
@@ -120,10 +121,10 @@ Narrator.addStates({
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_3)
-            Narrator.showCaption(window.Captions["en"].captions["during3"]);
+            Narrator.showCaption("during3");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
-                Narrator.showCaption(window.Captions["en"].captions["conclusion3"]);
+                Narrator.showCaption("conclusion3");
                 state._listener = subscribe("/mouse/down",function(scene){
                     unsubscribe(state._listener);
                     Narrator.hideCaption();
@@ -137,10 +138,10 @@ Narrator.addStates({
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_4)
-            Narrator.showCaption(window.Captions["en"].captions["during4"]);
+            Narrator.showCaption("during4");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
-                Narrator.showCaption(window.Captions["en"].captions["conclusion4"]);
+                Narrator.showCaption("conclusion4");
                 state._listener = subscribe("/mouse/down",function(scene){
                     unsubscribe(state._listener);
                     Narrator.hideCaption();
@@ -154,10 +155,10 @@ Narrator.addStates({
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_1)
-            Narrator.showCaption(window.Captions["en"].captions["during5"]);
+            Narrator.showCaption("during5");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
-                Narrator.showCaption(window.Captions["en"].captions["conclusion5"]);
+                Narrator.showCaption("conclusion5");
             });
 		}
 	},

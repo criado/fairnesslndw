@@ -37,6 +37,8 @@ window.Narrator = new (function(){
 	// Properties
 	self.voices = {};
 	self.states = {};
+    self.current_caption_id = null;
+    self.caption_language = "en";
 	self.currentState = null;
 	self.currentPromise = null;
 	self.soundInstances = [];
@@ -183,13 +185,23 @@ window.Narrator = new (function(){
 		if(self.currentState){
 			self.currentState.during(self.currentState);
 		}
+
+		var chosenLanguageID = CAPTION_LANGUAGE;
+        if(self.caption_language != CAPTION_LANGUAGE){
+            self.caption_language = CAPTION_LANGUAGE;
+			self.showCaption(self.current_caption_id);
+        }
+
 	};
-	self.showCaption = function(caption){
-		self.captionsText.textContent = caption;
-		self.captionsText.innerText = caption;
+	self.showCaption = function(caption_id){
+        self.current_caption_id = caption_id;
+        caption_text = window.Captions[self.caption_language].captions[caption_id]
+		self.captionsText.textContent = caption_text;
+		self.captionsText.innerText = caption_text;
 		self.captionsDOM.style.display = "block";
 	};
 	self.hideCaption = function(caption){
+        self.current_caption_id = null;
 		self.captionsDOM.style.display = "none";
 	};
 

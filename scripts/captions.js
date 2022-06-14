@@ -8,7 +8,7 @@ window.Captions = {
 	"en": {
 		label: "English",
 		captions: {
-			"intro0": "We are going to assign internet speed in a shared network and we want to do it *fairly*. This means that we want: (1) who you are shouldn't matter! No privileges! (2) If we can get more without anyone losing, we get more, (3) how we share the network should not depend on whether we measure the speed in MB/s, or in nibbles per nanocenturies or in any other way! (or °C vs °F if we worked with temperature) (4) if among all the available options we select an assignment as fair, then we select the same if we have fewer options and we still can.",
+			"intro0": "We are going to assign internet speed in a shared network and we want to do it *fairly*. This means that we want: (1) who you are shouldn't matter! No privileges! (2) If we can get more without anyone losing, we get more, (3) how we share the network should not depend on whether we measure the speed in MB/s, or in nibbles per femtocenturies or in any other way! (or °C vs °F if we worked with temperature) (4) if among all the available options we select an assignment as fair, then we select the same if we have fewer options and we still can.",
 			"intro1": "There are computers and serveral users that want information for servers. This isn't interesting because they are not connected. (rephrase) So let's add some connections",
 			"during1": "Each of the connections can transport a certain amount of information per second and then it becomes saturated. Use the sliders on the right to make everyone happy by giving them the maximum amount of information they can take",
 			"conclusion1": "First conclusion, everyone is happy, different edges are saturated, but the edges in common can transport enough information. Things start to get complex and intersting when common connections cannot deal with what everyone would want to receive. You have to share! And it's better to do it fairly.\n\nYou can play with the sliders some more if you want and when you are ready, click on the main screen to move to a more interesting example.",
@@ -26,11 +26,18 @@ window.Captions = {
 	"de": {
 		label: "Deutsch",
 		captions: {
-			"conclusion1":"",
-			"conclusion2": "Einige Schlussfolgerungen der zweiten Ebene",
-			"conclusion3": "Das ist ein schöner Abschluss des dritten Levels",
-			"conclusion4": "Oh mein Gott, du hast Level 4 gelöst. Jetzt ist Level 5 eine Herausforderung",
-			"conclusion5": "Herzlichen Glückwunsch! Ich hoffe, du hast etwas über Fairness gelernt und hattest Spaß"
+			"intro0": "The translation of nibble should still be nibble. It refers to this https://de.wikipedia.org/wiki/Nibble",
+			"intro1": "German coming soon2",
+			"during1": "German coming soon",
+			"conclusion1": "German coming soon",
+			"during2": "German coming soon",
+			"conclusion2": "German coming soon",
+			"during3": "German coming soon",
+			"conclusion3": "German coming soon",
+			"during4": "German coming soon",
+			"conclusion4": "German coming soon",
+			"during5": "German coming soon",
+			"conclusion5": "German coming soon",
 		}
 	}
 
