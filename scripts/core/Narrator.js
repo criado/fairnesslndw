@@ -42,7 +42,7 @@ window.Narrator = new (function(){
 	self.currentState = null;
 	self.currentPromise = null;
 	self.soundInstances = [];
-	self._GLOBAL_ = {}; // global vars for when I give up on life.
+	self._GLOBAL_ = {"eps": 1.0}; // global vars for when I give up on life.
 
 	// Configuration
 	self.addNarration = function(voiceConfig){
@@ -190,8 +190,13 @@ window.Narrator = new (function(){
         if(self.caption_language != CAPTION_LANGUAGE){
             self.caption_language = CAPTION_LANGUAGE;
 			self.showCaption(self.current_caption_id);
+            // Change bar title
+            document.getElementById("bar_title_text").innerHTML = window.Captions[self.caption_language].bar_title;
+            document.getElementById("legend_happy").innerHTML = window.Captions[self.caption_language].legend_happy;
+            document.getElementById("legend_greedy").innerHTML = window.Captions[self.caption_language].legend_greedy;
+            document.getElementById("legend_sad").innerHTML = window.Captions[self.caption_language].legend_sad;
+            document.getElementById("legend_waste").innerHTML = window.Captions[self.caption_language].legend_waste;
         }
-
 	};
 	self.showCaption = function(caption_id){
         self.current_caption_id = caption_id;

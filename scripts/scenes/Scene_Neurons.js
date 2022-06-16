@@ -138,10 +138,10 @@ function Scene_Propagation(level_map){
 
 	var self = this;
 	BrainScene.call(self);
-
+    document.getElementById("canvas").style.background= "#def";
 
     // TODO we could improve the efficiency of this with better data structures
-    var eps = 0.39;// This is slightly lower than 0.1 which is the current precision of the slider. It seems to work well
+    var eps = window.Narrator._GLOBAL_.eps - 0.01;// This is slightly lower than 0.1 which is the current precision of the slider. It seems to work well
     self.cap_and_update_happiness = function(cap_all, slider){
         if(slider){
             arr = slider.id.split("_");
@@ -179,17 +179,29 @@ function Scene_Propagation(level_map){
             //compute happiness of current slider // We could prune by checking which sliders are independent from the current one
             actual_value = cap_this_one ? Math.min(capped_value, slider_k.value) :  slider_k.value; // The current slider hasn't been capped yet
             sum_utils -= actual_value;
-            //console.log("actual_value", k, actual_value);
-            //console.log("sum_utils", sum_utils);
-            happy = capped_value <= parseFloat(slider_k.value) && actual_value >= self.optimal[k]-eps;
+
+            saturated = capped_value <= parseFloat(slider_k.value) 
+            //console.log("capped value", capped_value, "slider value", parseFloat(slider_k.value) );
+            //happy = saturated && actual_value >= self.optimal[k]-eps;
+            happy = saturated && actual_value >= self.optimal[k] - eps*3/4 && !(actual_value - window.Narrator._GLOBAL_.eps > self.optimal[k] - eps/2 );
+            greedy = saturated && !happy && actual_value - window.Narrator._GLOBAL_.eps > self.optimal[k]  - eps/2;
             everyone_happy &= happy;
-            if(happy){
-                if (slider_k.style != "--img-path:url('./../assets/ui/happy.png')");
-                    slider_k.style="--img-path:url('./../assets/ui/happy.png')";
+            //console.log("actual", actual_value, "optimal", self.optimal[k], "glob epsilon",  window.Narrator._GLOBAL_.eps, "local_eps", eps);
+            if(!saturated){
+                if (slider_k.style != "--img-path:url('./../assets/ui/what_a_waste_face.png')");
+                    slider_k.style="--img-path:url('./../assets/ui/what_a_waste_face.png')";
+            }
+            else if(happy){
+                if (slider_k.style != "--img-path:url('./../assets/ui/happy_face.png')");
+                    slider_k.style="--img-path:url('./../assets/ui/happy_face.png')";
+            }
+            else if(greedy){
+                if (slider_k.style != "--img-path:url('./../assets/ui/greedy_face.png')");
+                    slider_k.style="--img-path:url('./../assets/ui/greedy_face.png')";
             }
             else{
-                if (slider_k.style != "--img-path:url('./../assets/ui/sad.png')");
-                    slider_k.style="--img-path:url('./../assets/ui/sad.png')";
+                if (slider_k.style != "--img-path:url('./../assets/ui/sad_face.png')");
+                    slider_k.style="--img-path:url('./../assets/ui/sad_face.png')";
             }
             if(cap_this_one){// cap the current slider if necessary and update flows
                 capped_value = Math.min(capped_value, slider_k.value); // take the minimum of the maximum possible value and the slider value
@@ -211,38 +223,41 @@ function Scene_Propagation(level_map){
         }
         if(everyone_happy){
             self.won = true;
-            console.log('You won!');
+            document.getElementById("canvas").style.background= "#efd";
         }
     };
 
-	Neuron.load_scene_data(self,level_map);
+	self.level_data = Neuron.load_scene_data(self,level_map);
 
-    // We define the oninput of all the sliders
-    for(var l=0;l<self.flows.length;l++){
-        document.getElementById("control_volume_slider_"+l.toString()).oninput = function(){
-            self.cap_and_update_happiness(false, this);
-        }; 
-    }
-
-    // Set initial happiness and cap if we made a mistake when setting the initial values
-    self.cap_and_update_happiness(true);
 
     // Camera
 	self.setCamera(700, 300, 1);
 	
 
 	// Scene Transitions
-	self.transitionIn = function(){
+	self.transitionIn = function(scene){
+
 		self.cameraEased.zoom = 0.2;
+        //simulate 25 seconds
+        for(var i=0;i<25*30;i++){
+            scene.update(true); //true mean no render, just advance simulation
+        }
 	};
 	self.transitionOut = function(){
-        document.getElementById("util_background").remove();
-        for(var l=0;l<self.flows.length;l++){
-            document.getElementById("control_volume_slider_"+l.toString()).remove();
-            document.getElementById("util_"+l.toString()).remove();
+        if(self._listener_controls)
+            unsubscribe(self._listener_controls);
+        self.won = false;
+        aux = document.getElementById("util_background")
+        if(aux){
+            aux.remove();
+            for(var l=0;l<self.flows.length;l++){
+                document.getElementById("control_volume_slider_"+l.toString()).remove();
+                document.getElementById("util_"+l.toString()).remove();
+            }
         }
 		// NEURONS_SERIALIZED = Neuron.serialize(self,true);
-		self.camera.x = 3000; // DAVID: This is just to transition out, it takes you out of the scene, then the scene is killed, a new one is loaded and there is a transition in
+		self.camera.x = 3000; // This is just to transition out, it takes you out of the scene, then the scene is killed, a new one is loaded and there is a transition in
+		//return function(){return (self.cameraEased.x>1600);}; // done when this is
 		return function(){return (self.cameraEased.x>1600);}; // done when this is
 	};
 

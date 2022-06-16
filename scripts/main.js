@@ -76,6 +76,7 @@ subscribe("/init",function(){
 
 	// Initialize Shtuff
 	Interactive.init();
-	Narrator.goto("INTRO");
+	Narrator.goto("SCREENSAVER");
+	//Narrator.goto("LEVEL4");
 
 });

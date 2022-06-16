@@ -66,7 +66,7 @@ function Connection(scene){
 	};
 
 	// UPDATE
-	self.update = function(timer, scene){
+	self.update = function(timer, scene, initial){
 
 		// Pythagorean Distance
 		var dx = self.from.nx-self.to.nx;
@@ -96,8 +96,10 @@ function Connection(scene){
 		// Animation
 		self.lineWidth = self.fullLineWidth * (self.capacity/100);
 		//self.lineWidth = (self.strength<1) ? self.fullLineWidth/2 : self.fullLineWidth;
-		self.strengthEased = self.strengthEased*0.9 + self.strength*0.1;
-		self.easedLineWidth = self.easedLineWidth*0.9 + self.lineWidth*0.1;
+        self.strengthEased = self.strengthEased*0.9 + self.strength*0.1;
+        if(!initial){
+            self.easedLineWidth = self.easedLineWidth*0.9 + self.lineWidth*0.1;
+        }
 	};
 
 	self.strokeStyle = "#aaaaaa";
@@ -136,7 +138,7 @@ function Connection(scene){
                     capacity -= self.scene.flows[i].get(from)[to];
             }
             // TODO have the eps variable be accesible from here and substitute 0.2 by eps/2 or so 
-            ctx.strokeStyle = capacity > 0.2 ? self.strokeStyle : self.strokeStyleSaturated;
+            ctx.strokeStyle = capacity > window.Narrator._GLOBAL_.eps / 2 ? self.strokeStyle : self.strokeStyleSaturated;
 
 			// draw a line
 			var offsetY = 0;
@@ -155,7 +157,8 @@ function Connection(scene){
 		// draw all pulses
 		for(var i=0;i<self.pulses.length;i++){
 			var pulse = self.pulses[i];
-            colors = ['#f00', '#0f0', '#36f','#ff0','#f0f','#0ff','#fff' ];
+            colors = ['#f00', '#0f0', '#00f', '#ff0','#f0f','#0ff','#fff' ];
+            //colors = ['#ea0', '#0a7', '#5be', '#fe4','#f0f','#0ff','#fff' ];
             fillStyle = colors[pulse.type];
 			ctx.fillStyle = fillStyle; // DAVID TODO use a dictionary that should be in the info that we serialize
 			ctx.beginPath();

@@ -41,18 +41,25 @@ Narrator.addNarration({
 	}
 });
 
-var level_intro='{"neurons":[[-100,0,0], [-100,150,-1], [400,0,2], [400,150,-1], [900,0,4], [900,150,-1], [400, 300, -1], [-100,600,1], [400,600,3], [900,600,5], [400, 450, -1]],"connections":[],"flows":[{"0":{}}, {"2":{}}, {"6":{}}],"initial":[0, 0, 0],"optimal":[120, 120, 120],"phases":[0,0,0],"utilit_sol":300}';
+var level_intro='{"neurons":[[-100,-50,0], [-100,100,-1], [400,-50,2], [400,100,-1], [900,-50,4], [900,100,-1], [400, 250, -1], [-100,550,1], [400,550,3], [900,550,5], [400, 400, -1]],"connections":[[0, 1, 40], [2, 3, 40], [4, 5, 40], [1, 6, 40], [3, 6, 40], [5, 6, 40], [10, 7, 40], [10, 8, 40], [10, 9, 40], [6, 10, 100]],"flows":[ {"0":{"1":30},"1":{"6":30},"6":{"10":30},"10":{"7":30}},{"2":{"3":30},"3":{"6":30},"6":{"10":30},"10":{"8":30}},{"4":{"5":30},"5":{"6":30},"6":{"10":30},"10":{"9":30}}],"initial":[30, 30, 30],"optimal":[30, 30, 30],"phases":[0,12,5],"utilit_sol":80,"enabled_controls":false}';
+//var level_intro='{"neurons":[[-100,0,0], [-100,150,-1], [400,0,2], [400,150,-1], [900,0,4], [900,150,-1], [400, 300, -1], [-100,600,1], [400,600,3], [900,600,5], [400, 450, -1]],"connections":[],"flows":[{"0":{}}, {"2":{}}, {"6":{}}],"initial":[0, 0, 0],"optimal":[120, 120, 120],"phases":[0,0,0],"utilit_sol":300,"enabled_controls":false}';
 
 
-var level_map_1='{"neurons":[[-100,-50,0], [-100,100,-1], [400,-50,2], [400,100,-1], [900,-50,4], [900,100,-1], [400, 250, -1], [-100,550,1], [400,550,3], [900,550,5], [400, 400, -1]],"connections":[[0, 1, 70], [2, 3, 30], [4, 5, 20], [1, 6, 30], [3, 6, 30], [5, 6, 30], [10, 7, 100], [10, 8, 100], [10, 9, 100], [6, 10, 100]],"flows":[{"0":{"1":0},"1":{"6":0},"6":{"10":0},"10":{"7":0}},{"2":{"3":0},"3":{"6":0},"6":{"10":0},"10":{"8":0}},{"4":{"5":0},"5":{"6":0},"6":{"10":0},"10":{"9":0}}],"initial":[0, 0, 0],"optimal":[30, 30, 20],"phases":[0,12,5],"utilit_sol":80}';
+var level_map_1='{"neurons":[[-100,-50,0], [-100,100,-1], [400,-50,2], [400,100,-1], [900,-50,4], [900,100,-1], [400, 250, -1], [-100,550,1], [400,550,3], [900,550,5], [400, 400, -1]],"connections":[[0, 1, 70], [2, 3, 30], [4, 5, 20], [1, 6, 30], [3, 6, 30], [5, 6, 30], [10, 7, 100], [10, 8, 100], [10, 9, 100], [6, 10, 100]],"flows":[{"0":{"1":0},"1":{"6":0},"6":{"10":0},"10":{"7":0}},{"2":{"3":0},"3":{"6":0},"6":{"10":0},"10":{"8":0}},{"4":{"5":0},"5":{"6":0},"6":{"10":0},"10":{"9":0}}],"initial":[0, 0, 0],"optimal":[30, 30, 20],"phases":[0,12,5],"utilit_sol":80,"enabled_controls":true}';
 
-var level_map_2='{"neurons":[[-110, 350, 0], [90, 350, -1], [90,100, 2], [290,350,-1], [290,100,3], [510,350,-1],[510,100,4],[710,350,-1],[710,100,5], [910,350,1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100]],"flows":[{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":0}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}],"initial":[0, 100, 100],"optimal":[33.33, 66.67, 66.67],"phases":[8, 0, 0],"utilit_sol":200}';
+var level_map_2='{"neurons":[[-100,-50,0], [-100,100,-1], [900,-50,2], [900,100,-1], [400, 250, -1], [-100,550,1], [900,550,3], [400, 400, -1]],"connections":[[0, 1, 100], [2, 3, 100], [1, 4, 100], [3, 4, 100], [7, 5, 100], [7, 6, 100], [4, 7, 100]],"flows":[{"0":{"1":100},"1":{"4":100},"4":{"7":100},"7":{"5":100}},{"2":{"3":0},"3":{"4":0},"4":{"7":0},"7":{"6":0}}],"initial":[100, 0],"optimal":[50, 50],"phases":[0,8],"utilit_sol":100,"enabled_controls":true}';
 
-var level_map_3='{"neurons":[[-110, 200, 0], [90, 200, -1], [90,-50, 2], [290,200,-1], [290,-50,3], [510,200,-1],[510,-50,4],[710,200,-1],[710,-50,5], [910,200,1], [290, 442, 6], [510, 442, 7]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,80], [7,9,100], [2,1,100], [3,4,60], [6,5,100], [7,8,100], [10, 3, 100], [5, 11, 100]],"flows":[{"0":{"1": 40},"1":{"3":40}, "3":{"5":40}, "5":{"7":40}, "7":{"9":40}}, {"2":{"1":50}, "1":{"3":50}, "3":{"4":50}}, {"6":{"5":40}, "5":{"7":40}, "7":{"8":40}}, {"10":{"3": 50},"3":{"5":50}, "5":{"11":50}}],"initial":[40, 50, 40, 50],"optimal":[29.45, 60, 50.55, 70.55],"phases":[8, 0, 0, 0],"utilit_sol":240}';
+var level_map_3='{"neurons":[[-110, 350, 0], [90, 350, -1], [90,100, 2], [290,350,-1], [290,100,3], [510,350,-1],[510,100,4],[710,350,-1],[710,100,5], [910,350,1]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,100], [7,9,100], [2,1,100], [3,4,100], [6,5,100], [7,8,100]],"flows":[{"0":{"1": 0},"1":{"3":0}, "3":{"5":0}, "5":{"7":0}, "7":{"9":0}}, {"2":{"1":100}, "1":{"3":100}, "3":{"4":100}}, {"6":{"5":100}, "5":{"7":100}, "7":{"8":100}}],"initial":[0, 100, 100],"optimal":[34, 66, 66],"phases":[8, 0, 0],"utilit_sol":200,"enabled_controls":false}';
+// true optimal: :[33.33, 66.67, 66.67]
 
-var level_map_4='{"neurons":[[770,300,1], [130,300,7], [224,74,6], [676,526,0], [450,620,4], [450,-20,5], [676,74,3], [224,526,2]], "connections":[[2,4,70],[4,6,80], [6,1,80], [1,3,100], [3,5,60], [5,7,50], [7,0,70], [0,2,30]],"flows":[{"3":{"5": 10}, "5":{"7": 10},"7":{"0": 10}},{"7":{"0": 10},"0":{"2": 10},"2":{"4": 10},"4":{"6": 10}},{"4":{"6": 10},"6":{"1": 10},"1":{"3": 10},"3":{"5": 10}},{"2":{"4": 10},"4":{"6": 10},"6":{"1": 10}}],"initial":[50, 0, 10, 70],"optimal":[40.975, 29.025, 19.025, 31.95],"phases":[11, 6, 12, 3],"utilit_sol":130}';
+var level_map_4='{"neurons":[[-110, 200, 0], [90, 200, -1], [90,-50, 2], [290,200,-1], [290,-50,3], [510,200,-1],[510,-50,4],[710,200,-1],[710,-50,5], [910,200,1], [290, 442, 6], [510, 442, 7]],"connections":[[0,1,100],[1,3,100], [3,5,100], [5,7,80], [7,9,100], [2,1,100], [3,4,60], [6,5,100], [7,8,100], [10, 3, 100], [5, 11, 100]],"flows":[{"0":{"1": 45},"1":{"3":45}, "3":{"5":45}, "5":{"7":45}, "7":{"9":45}}, {"2":{"1":45}, "1":{"3":45}, "3":{"4":45}}, {"6":{"5":35}, "5":{"7":35}, "7":{"8":35}}, {"10":{"3": 45},"3":{"5":45}, "5":{"11":45}}],"initial":[45, 55, 35, 55],"optimal":[30, 60, 50, 70],"phases":[8, 0, 0, 0],"utilit_sol":240,"enabled_controls":true}';
+//true optimal [29.45, 60, 50.55, 70.55]
+
+var level_map_5='{"neurons":[[700,270,1], [60,270,7], [154,44,6], [606,496,0], [380,590,4], [380,-50,5], [606,44,3], [154,496,2]], "connections":[[2,4,70],[4,6,80], [6,1,80], [1,3,100], [3,5,60], [5,7,50], [7,0,70], [0,2,30]],"flows":[{"3":{"5": 50}, "5":{"7": 50},"7":{"0": 50}},{"7":{"0": 0},"0":{"2": 0},"2":{"4": 0},"4":{"6": 0}},{"4":{"6": 10},"6":{"1": 10},"1":{"3": 10},"3":{"5": 10}},{"2":{"4": 70},"4":{"6": 70},"6":{"1": 70}}],"initial":[50, 0, 10, 70],"optimal":[41, 29, 19, 32],"phases":[11, 6, 12, 3],"utilit_sol":130,"enabled_controls":true}';
+// true optimal: :[40.975, 29.025, 19.025, 31.95]
 
 
+var level_map_screensaver='{"neurons":[[700,270,1], [60,270,7], [154,44,6], [606,496,0], [380,590,4], [380,-50,5], [606,44,3], [154,496,2]], "connections":[[2,4,70],[4,6,80], [6,1,80], [1,3,100], [3,5,60], [5,7,50], [7,0,70], [0,2,30]],"flows":[{"3":{"5": 30}, "5":{"7": 30},"7":{"0": 30}},{"7":{"0": 20},"0":{"2": 20},"2":{"4": 20},"4":{"6": 20}},{"4":{"6": 20},"6":{"1": 20},"1":{"3": 20},"3":{"5": 20}},{"2":{"4": 25},"4":{"6": 25},"6":{"1": 25}}],"initial":[30, 20, 20, 25],"optimal":[40.975, 29.025, 19.025, 31.95],"phases":[11, 6, 12, 3],"utilit_sol":130,"enabled_controls":false}';
  
 
 
@@ -60,23 +67,10 @@ Narrator.addStates({
 
 	INTRO:{
 		start:function(state){
+			Narrator.scene("Propagation", level_intro);
             Narrator.showCaption("intro0");
             state._listener = subscribe("/mouse/click",function(scene){
                 unsubscribe(state._listener);
-                //await new Promise(r => setTimeout(r, 500)); // wait half a second to avoid double clicks?
-                Narrator.hideCaption();
-                Narrator.goto("INTRO_1");
-            });
-		}
-	},
-
-	INTRO_1:{
-		start:function(state){
-			Narrator.scene("Propagation", level_intro);
-            Narrator.showCaption("intro1");
-            state._listener = subscribe("/mouse/click",function(scene){
-                unsubscribe(state._listener);
-                console.log("I've been here");
                 Narrator.hideCaption();
                 Narrator.goto("LEVEL1");
             });
@@ -87,12 +81,12 @@ Narrator.addStates({
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_1)
-            Narrator.showCaption(window.Captions["en"].captions["during1"]);
+            Narrator.showCaption("during1");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion1");
-                state._listener = subscribe("/mouse/down",function(scene){
-                    unsubscribe(state._listener);
+                state._listener2 = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener2);
                     Narrator.hideCaption();
                     Narrator.goto("LEVEL2");
                 });
@@ -108,8 +102,8 @@ Narrator.addStates({
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion2");
-                state._listener = subscribe("/mouse/down",function(scene){
-                    unsubscribe(state._listener);
+                state._listener2 = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener2);
                     Narrator.hideCaption();
                     Narrator.goto("LEVEL3");
                 });
@@ -117,18 +111,61 @@ Narrator.addStates({
 		}
 	},
 
+	INTRO_1:{
+		start:function(state){
+			Narrator.scene("Propagation", level_intro);
+            Narrator.showCaption("intro1");
+            state._listener = subscribe("/mouse/click",function(scene){
+                unsubscribe(state._listener);
+                Narrator.hideCaption();
+                Narrator.goto("INTRO_2");
+            });
+		}
+	},
+	INTRO_2:{
+		start:function(state){
+            Narrator.showCaption("intro2");
+            state._listener = subscribe("/mouse/click",function(scene){
+                unsubscribe(state._listener);
+                Narrator.hideCaption();
+                Narrator.goto("INTRO_3");
+            });
+		}
+	},
+    
+	INTRO_3:{
+		start:function(state){
+            Narrator.showCaption("intro3");
+            state._listener = subscribe("/mouse/click",function(scene){
+                unsubscribe(state._listener);
+                Narrator.hideCaption();
+                Narrator.goto("LEVEL1");
+            });
+		}
+	},
+
+
 	LEVEL3:{
 		start:function(state){
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_3)
             Narrator.showCaption("during3");
-			state._listener = subscribe("/level/won",function(scene){
-                unsubscribe(state._listener);
-                Narrator.showCaption("conclusion3");
-                state._listener = subscribe("/mouse/down",function(scene){
+            state._listener3 = subscribe("/mouse/click",function(scene){
+                Narrator.showCaption("during3b");
+                publish("/level/enable_controls");
+                unsubscribe(state._listener3);
+                state._listener = subscribe("/level/won",function(scene){
                     unsubscribe(state._listener);
-                    Narrator.hideCaption();
-                    Narrator.goto("LEVEL4");
+                    Narrator.showCaption("conclusion3");
+                    state._listener4 = subscribe("/mouse/click",function(scene){
+                        unsubscribe(state._listener4);
+                        Narrator.showCaption("conclusion3b");
+                        state._listener2 = subscribe("/mouse/click",function(scene){
+                            unsubscribe(state._listener2);
+                            Narrator.hideCaption();
+                            Narrator.goto("LEVEL4");
+                        });
+                    });
                 });
             });
 		}
@@ -142,28 +179,53 @@ Narrator.addStates({
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion4");
-                state._listener = subscribe("/mouse/down",function(scene){
-                    unsubscribe(state._listener);
+                state._listener2 = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener2);
                     Narrator.hideCaption();
                     Narrator.goto("LEVEL5");
                 });
             });
 		}
 	},
-    
+
 	LEVEL5:{
 		start:function(state){
 			//Narrator.scene("Intro")
-			Narrator.scene("Propagation", level_map_1)
+			Narrator.scene("Propagation", level_map_5)
             Narrator.showCaption("during5");
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion5");
+                state._listener2 = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener2);
+                    Narrator.hideCaption();
+                    Narrator.goto("SCREENSAVER");
+                });
+            });
+		}
+        /*
+		during:function(state){
+			if(state._ticker>0){
+				state._ticker--;
+			}
+		}
+        */
+    },
+
+	SCREENSAVER:{
+		start:function(state){
+			//Narrator.scene("Intro")
+			Narrator.scene("Propagation", level_map_screensaver)
+            Narrator.showCaption("screensaver");
+            state._listener = subscribe("/mouse/click",function(scene){
+                unsubscribe(state._listener);
+                Narrator.hideCaption();
+                Narrator.goto("INTRO");
             });
 		}
 	},
 
-
+    
     /*
 	PROP_INTERRUPTABLE:{
 		start:function(state){

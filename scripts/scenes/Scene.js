@@ -67,7 +67,7 @@ function BrainScene(){
 	// Update
 	var _prevUpdate = self.update;
     var timer = 0; // Frame counter, 30 frames per second
-	self.update = function(){
+	self.update = function(initial){
 
         if (self.won){
             publish("/level/won",[self]);
@@ -75,22 +75,24 @@ function BrainScene(){
         }
 
 		// Camera
-		_prevUpdate.call(self);
+        if(!initial)
+            _prevUpdate.call(self);
+
 
 		// My Things
 		_update(self.neurons, timer);
 		//_update(self.flows); In principle the sliders are updating the flows. so I don't need this
-		_update(self.connections, timer, self);
+		_update(self.connections, timer, self, initial);
         self.flow_changed = false;
 		//_update(self.sprites, timer);
 		//_update(self.flashes, timer);
         timer += 1;
-
 	};
-	var _update = function(array, timer, scene){
+
+	var _update = function(array, timer, scene, initial){
 		for(var i=0;i<array.length;i++){
 			var a = array[i];
-			a.update(timer, scene);
+			a.update(timer, scene, initial);
 			if(a.dead){
 				if(a.kill) a.kill();
 				array.splice(i,1);

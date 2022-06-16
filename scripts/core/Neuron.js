@@ -410,9 +410,46 @@ Neuron.load_scene_data = function(scene,string,detailed){
         scene.flows.push(new Map(Object.entries(flow)));
 	}
 
-    controls = document.getElementById("controls")
+
+    scene.enabled_controls = input.enabled_controls;
+
+    if(scene.enabled_controls){
+        console.log("asdf");
+        Neuron.enable_controls(scene, input);
+        console.log("asdf2");
+    }
+    else{
+        scene._listener_controls = subscribe("/level/enable_controls",function(){
+            Neuron.enable_controls(scene, scene.level_data);
+            unsubscribe(scene._listener_controls);
+            scene._listener_controls = null;
+        });
+    }
+    scene.optimal = input.optimal; // Optimal (approximate) values. It is important that our approximate solution is feasible, otherwise we might not have a feasible solution being in the ell-infinity box \Pi[optimal[i]-eps]. Although our eps is quite large, so probably we won't have any problems in any case.
+
+    if(scene.enabled_controls){
+        // We define the oninput of all the sliders
+        for(var l=0;l<scene.flows.length;l++){
+            document.getElementById("control_volume_slider_"+l.toString()).oninput = function(){
+                scene.cap_and_update_happiness(false, this);
+                publish('/level/interaction');
+            }; 
+        }
+
+        // Set initial happiness and cap if we made a mistake when setting the initial values
+        scene.cap_and_update_happiness(true);
+    }
+
+
+    return input;
+
+};
+
+
+Neuron.enable_controls = function(scene, input){
+    controls = document.getElementById("controls");
     for(var i=0;i<input.initial.length;i++){
-        controls.innerHTML += `<input class="control_volume_slider" id="control_volume_slider_${i}" style="--img-path:url(\'./../assets/ui/sad.png\')" type="range" orient="vertical" min="0" max="100" step="0.4" value="${input.initial[i]}" />`;
+        controls.innerHTML += `<input class="control_volume_slider" id="control_volume_slider_${i}" style="--img-path:url(\'./../assets/ui/sad.png\')" type="range" orient="vertical" min="0" max="100" step="${window.Narrator._GLOBAL_.eps}" value="${input.initial[i]}" />`;
     }
 
     total_util_bar = document.getElementById("total_utility")
@@ -427,8 +464,21 @@ Neuron.load_scene_data = function(scene,string,detailed){
     for(var i=0;i<input.initial.length;i++){
         total_util_bar.innerHTML += `<div class="vertical-progress" id="util_${i}" style="background-color: ${colors[i]}; height:${100*input.initial[i]/input.utilit_sol}%;"></div>`;
     }
-
     scene.utilit_sol = input.utilit_sol;
-    scene.optimal = input.optimal; // Optimal (approximate) values. It is important that our approximate solution is feasible, otherwise we might not have a feasible solution being in the ell-infinity box \Pi[optimal[i]-eps]. Although our eps is quite large, so probably we won't have any problems in any case.
+
+    if(!scene.enabled_controls){
+        // We define the oninput of all the sliders
+        for(var l=0;l<scene.flows.length;l++){
+            document.getElementById("control_volume_slider_"+l.toString()).oninput = function(){
+                scene.cap_and_update_happiness(false, this);
+                publish('/level/interaction');
+            }; 
+        }
+
+        // Set initial happiness and cap if we made a mistake when setting the initial values
+        scene.cap_and_update_happiness(true);
+    }
+    scene.enabled_controls = true;
 
 };
+

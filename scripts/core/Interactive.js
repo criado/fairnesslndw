@@ -21,7 +21,7 @@ window.Interactive = new (function(){
 	self.goto = function(SceneClass){
 		if(self.scene && self.scene.kill) self.scene.kill(); // kill last scene.
 		self.scene = new SceneClass(self.level_map);
-		if(self.scene.transitionIn) self.scene.transitionIn();
+		if(self.scene.transitionIn) self.scene.transitionIn(self.scene);
 	};
 	self.update = function(){
 		canvas.style.cursor = "default";
@@ -32,7 +32,6 @@ window.Interactive = new (function(){
 			return;
 		}
 
-		// No scene? Stahp.
 		if(self.scene) self.scene.update();
 
 		// Narrator update
