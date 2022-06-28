@@ -1,0 +1,172 @@
+
+\begin{columns}[t,totalwidth=\textwidth]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1st column
+
+\onehalfcolumn
+
+  \begin{sectionblock}{$\alpha$-fairness and proportional fairness}
+    Suppose we have a resource allocation problem where a single resource has to be allocated to $n$ agents. One could try and maximize the amount of the resource allocated, but this could strongly favour some agents in the detriment of others.
+
+    A resource allocation would be \textbf{proportionally unfair} if it is possible to transfer an amount of the resource from an agent to another in such a way the proportional increase one agent experience is larger than the proportional decrease the other agent faces. More generally, a resource allocation satisfies \textbf{proportional fairness} (also called \textbf{$1$-fair fairness}) if it maximizes the sum of the log-utilities of each agent: $f(x)=\sum_{i=1}^n \log x_i$. %Proportional fairness is a particular case of \textbf{$\alpha$-fairness}, where the objective function is
+    %\[f_{\alpha}(x)= \left\{ \begin{array}{ll} \frac{x^{1-\alpha}}{1-\alpha}, & \text{if } \alpha\geq 0, \alpha\neq 1 \\ \log(x) & \text{if } \alpha=1,\end{array} \right. \]
+    %for $\alpha=1$. Note that the $0$-fair utility corresponds to the sum of the utilities.
+
+
+    Proportional fairness is the only utility function satisfying several expected \emph{fairness axioms} \cite{bertsimas2011}. We are interested in studying this fairness criterion for the case of positive polyhedra, which appear naturally in various resource allocation problems like network flows. This is a set of the form $\mathcal{P}= \{x\in \Rp^n : Ax \leq \ones_m, A\in\Rp^{m\times n}\}$.
+
+\end{sectionblock}
+  \begin{definition}[Packing proportional fairness and its dual]
+
+    Let $A\in \Rp^{m\times n}$ be a nonnegative matrix. We study the following two problems:
+
+    \begin{tabular}{llr} \textbf{1-fair packing \cite{diakonikolas2020fair}}: &  $\max_{x\in \Rp^n} \left\{ f(x) \defi \sum_{i=1}^{n} \log x_i : Ax \leq \ones_m\right\}.$ & (1)
+    \\ \textbf{Dual 1-fair packing}: & $\min_{\lambda \in \Delta^n} \left\{ g(\lambda) \defi -\sum_{i=1}^{n} \log (A^T \lambda)_i - n \log n  \right\}.$ & (2) \end{tabular}
+
+  \end{definition}
+
+\begin{table}
+    \centering
+    \caption{Comparison of algorithms for $\varepsilon$-approximating the $1$-fair packing problem and its dual. The work of one iteration is linear in $N$, the number of non-zero entries in $A$.}
+    \label{table:comparisons}
+
+\begin{tabular}{lclc}
+    \toprule
+    \textbf{Paper} & \textbf{Problem} & \textbf{Iterations} & \textbf{Width-dependence?} \\
+    % The following is not very relevant but it seems that for some choice of their parameters one could obtain
+    % 1-fair packing, however I haven't completely computed what is their final complexity in that case.
+    %\hline
+    %\citep{cheung2013tatonnement}   & Primal & $\bigo{\N\rho \n/\epsilon}$         & Yes\\
+    \midrule
+    \midrule
+    Beck, Nedic, Ozdaglar, Teboulle, (2014)      & Primal & $O(\rho^{2}mn/\epsilon)$         & Yes\\
+    Marašević, Stein, Zussman (2015)      & Primal & $\widetilde{O}(n^5/\epsilon^5)$ & \ \ \ \ \ {\color{mygray}nearly} No {\color{mygray}(polylog)} \\
+    Diakonikolas, Fazel, Orecchia (2020) \cite{diakonikolas2020fair}   & Primal & $\widetilde{O}(n^2/\epsilon^2)$ & \ \ \ \ \ {\color{mygray}nearly} No {\color{mygray}(polylog)}\\
+    \textbf{Criado, Martínez-Rubio, Pokutta (2021)}    & Primal & $\widetilde{O}(n/\epsilon)$  & No \\
+    \midrule
+    Beck, Nedic, Ozdaglar, Teboulle, (2014)        & Dual   & $\widetilde{O}(\rho\sqrt{mn/\epsilon})$    & Yes\\
+    \textbf{Criado, Martínez-Rubio, Pokutta (2021)}        & Dual   & $\widetilde{O}(n^2/\epsilon)$ & No \\
+    \bottomrule
+\end{tabular}
+
+\end{table}
+
+    \begin{sectionblock}{Primal problem: Exponential reparametrization and linear coupling}
+      We use the reparametrization for the $0$-fair packing problem similarly to the one in \cite{diakonikolas2020fair}. First, consider Problem 1 in exponential space, that is, replace the variable $x_i$ with $e^{x_i}$ to get:
+  \[ \max_{x\in \R^n}\left\{ \hat{f}(x) \defi \sum_{i\in n} x_i: A \exp(x) \leq \ones_m\right\}.\]
+
+  Now, we remove the constraints and add a barrier function to the objective funciton:
+
+  \[ f_r(x) \defi -\sum_{i\in n} x_i + \frac{\beta}{1+\beta} \sum_{i=1}^m (A\exp(x))_i^{\frac{1+\beta}{\beta}}.\]
+
+      $\beta$ is a technical parameter. If $\beta$ is small, then the second summand becomes large when $\exp(x)\not\in \pol$. In particular, we use $\beta= \frac{\varepsilon}{6n\log(2mn^2/\varepsilon)}$.
+
+    \end{sectionblock}
+
+    \begin{figure}[ht!]
+    \includegraphics[width= 0.4\linewidth] {figures/f_r(x).pdf}
+    \includegraphics[width= 0.4\linewidth] {figures/grad_f_r_(colors_are_log_norm)_but_plotted_in_original_space.pdf}
+
+      \caption{Regularized objective $f_r$ (left) and its gradient (right), for a sample matrix $A\in\mathcal{M}_{3\times 2}(\Rp)$. For visualization purposes we show $\log (f_r(x))$ and $\log(\norm{\nabla f_r(x)})$, represented by color, and we indicate the direction of the gradient with normalized arrows. Also, note that we show the results in the original space (before reparametrizing) but the gradient shown is computed in the reparametrized space.}
+      \label{fig:barrier}
+    \end{figure}
+We solve this second problem via \textbf{linear coupling} \cite{allen2019nearly} that uses truncated gradients and a descent condition of our problem. Linear coupling is a first-order optimization technique that combines a gradient descent step (primal) with a mirror descent step. The next point to compute will be a convex combination of the primal and dual iterations. It is possible to show that the new point will either reduce the value of the primal functon greatly, or increase the best known lower bound on the problem. In either case the dual gap decreases, guaranteeing fast convergence.
+
+    With this technique we can find a solution to the reparametrized problem with a low objective value, and furthermore, we can reconstruct a solution to the original problem:
+
+    \begin{theorem}[Criado, Martínez-Rubio, Pokutta 2021]
+      Let $\varepsilon\leq n/2$ and let $\bar{x}^*$ be the optimum solution of Problem 1. Our algorithm computes a point $y^{(T)} \in B$ such that $f_r(y^{(T)})-f_r(x^*_r) \leq \varepsilon$ in a number of iterations $T=\bigotilde{n/\varepsilon}$. Besides, $\hat{x} \defi \exp(y^{(T)})/(1+\varepsilon/n)$ is a feasible point of Problem 1, i.e., $A\hat{x}\leq \ones_m$, and $f(\bar{x}^*)-f(x)\leq 5\varepsilon = \bigo{\varepsilon}$.
+    \end{theorem}
+
+    Its running time is independent on the \emph{width} of $A$, unlike most $\alpha$-fair algorihtms.
+
+\begin{sectionblock}{Dual problem: The centroid map and the PST oracle}
+  Intuitively, Problem 2 is about finding the simplex minimizing volume with a fixed corner in the positive orthant that covers $\pol$. We identify the constraint $\langle h, x\rangle \leq 1$ with the (dual) point $h\in \Rp^n$. We can do this as all the constraints we work with have strictly positive right hand side.
+\end{sectionblock}
+    \begin{definition}
+      \begin{itemize}
+        \item $\D = \operatorname{conv} \{A_i: i\in [m]\}$,
+        \item $\D^+ = \left(\operatorname{conv} \{A_i: i\in [m] \} +\ [-\infty, 0]^n\right) \cap \Rp^n$.
+      \end{itemize}
+      $\D^+$ is the set of constraints (i.e., dual points) feasible in all $\pol$.
+    \end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2nd column
+\onehalfcolumn
+
+% quitar la primera frase, poner la tabla. Nuestros algoritmos en negrita mathbf
+    Consider the \textbf{centroid map} $c:\Rp^n\rightarrow \Rp^n$, $c(h) = \left(\frac{1}{nh_1},\dots, \frac{1}{nh_n}\right)$. It maps a constraint $h$ with the centroid of the simplex resulting from its intersection with the positive orthant.
+
+  \begin{figure}[ht!]
+    \includegraphics[width= 0.8\linewidth] {figures/primal_and_dual.pdf}
+    \caption{Left: The (extended) dual polytope $\mathcal{D}^+$ contains $\mathcal{D}$. $c$ maps dual points (i.e., feasible constraints in $\mathcal{P}$) to primal points. Right: $\mathcal{P}$ with the image of $\mathcal{D}^+$ and $\mathcal{D}$ under $c$. The intersection $\mathcal{P}\cap c(\mathcal{D}^+)$ is exactly one point which is also in $c(\mathcal{D})$. Note that $c(\mathcal{D})$ is not convex but $c(\mathcal{D}^+)$ is.}
+    \label{fig:primal_and_dual}
+  \end{figure}
+
+  The solution is the unique point in the intersection $\pol\cap c(\D^+)$. This motivates the study of the following \textbf{proxy problem}:
+
+  \[\min_{p \in c(\mathcal{D}^+)} \Big\{\hat{g}(p)\defi \max_{i\in[m]} \langle A_{i}, p \rangle \Big\}. \ \ \ \ (3)\]
+
+  The minimum is known to be $1$ and the solution is unique. This is a linear packing feasibility problem of the constraints $Ax\leq \ones_m$ over the convex set $c(\D^+)$. We solve this via a variant of the Plotkin-Shmoys-Tardos (PST) algorithm \cite{arora2012multiplicative}. This algorithm requires a \emph{feasibility oracle} to guide it.
+
+  The feasibility oracle receives a convex combination of the rows of $A$, $s=\lambda_s^TA$, $\lambda_s\in\Delta^n$ and returns a point $x\in c(\D^+)$ with $\lambda_s^TAx\leq 1$. In our case we made an \textbf{adaptive feasibility oracle} that performs better if equipped with good solutions of Problem 3.
+
+\begin{figure}
+  \begin{columns}[c]
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=\textwidth]{figures/primal_and_lens.pdf}
+    \end{column}
+    \begin{column}{.4\textwidth}
+      \caption{The \textbf{lens}, $\mathcal{L}_{\delta}(v)$ given by a \emph{good} feasible solution $s$. Our oracle returns points in this region satisfying any input constraint $h\in \D^+$ feasible over $\pol$. Observe that the intersection $\mathcal{P} \cap c(\mathcal{D}^+)$ is contained in $\mathcal{L}_{\delta}(v)$. As $\delta$ becomes smaller, the lens becomes smaller around the optimum primal solution. Thus the oracle gives better approximations of it.}\label{fig:lens}
+    \end{column}
+  \end{columns}
+\end{figure}
+
+%\end{figure}
+%  \begin{figure}[ht!]
+%    \centering
+%    \includegraphics[width= 0.4\linewidth] {figures/primal_and_lens.pdf}
+%    \caption{The \textbf{lens} given by a feasible solution $s$, for $\omega=1$. Our oracle returns points in this region. Observe thatthe intersection $\mathcal{P} \cap c(\mathcal{D}^+)$ is contained in $\mathcal{L}_{\delta}(v)$. As $\delta$ becomes smaller, the lens becomes smaller around the optimum primal solution. Thus the oracle gives better approximations of it.}
+%    \label{fig:lens}
+%  \end{figure}
+
+  Thanks to this adaptive oracle and a restarting scheme, we obtain the following result:
+
+\begin{theorem}[Criado, Martínez-Rubio, Pokutta, 2021]
+  Let $\varepsilon \in (0,n(n-1)]$ be an accuracy parameter. There is an algorithm that finds a linear combination of the rows of $A$, $\lambda\in\Delta^m$ such that $\hat{g} (c(\lambda^T A) ) \leq 1+\varepsilon/n$ (i.e., an $(\varepsilon/n)$-approximate solution of Problem 3) after $\bigotilde{n^2/\varepsilon}$ iterations. Furhtermore, this same solution is a $(\varepsilon)$-approximate solution of Problem 2.
+\end{theorem}
+
+  \begin{sectionblock}{Dual problem motivation: Yamnitsky and Levin's simplices algoritm}
+    The following algorithm \cite{yamnitsky1982} is a discrete version of the Ellipsoid method for convex/linear feasibility that runs in polynomial time for some choice of initial simplex and final volume:
+  \end{sectionblock}
+
+  \begin{columns}[c]
+    \begin{column}{.4\textwidth}
+      \includegraphics[width=\linewidth] {figures/simplexoid.png}
+    \end{column}
+    \begin{column}{.65\textwidth}
+    \begin{description}
+      \item[Input:] A facet description of a polyhedron $\mathcal{P}= \{x\in\mathbb{R}^n : Ax\leq b\}$ for $A\in \mathbb{R}^{m\times n}, b\in \mathbb{R}^m$. Also a simplex $\Delta^0=\subseteq \R^n$ with $\pol\in\Delta^0$ and a lower bound on the volume of $\pol$, $V_{min}$
+      \item[Output:] Either a point $x\in \mathcal{P}$ or \textbf{emtpy}.
+      \item[0.] Let $k=0$.
+      \item[1.] If $vol(\Delta^k)<V_{min}$ return \textbf{empty}.
+      \item[2.] Compute the centroid of $\Delta$, $c^k$.
+      \item[3.] If $c^k\in \pol$ then return $c^k$.
+      \item[4.] Select a row $A_j$ such that $A_j c^k > b_j$.
+      \item[5.] Obtain a new simplex $\Delta^{k+1}$ by combining one facet of $\Delta^k$ with $A_j, b_j$. The other facets remain unchanged. $vol(\Delta^{k+1}) \leq (1-\frac{1}{n^2}) vol(\Delta^k)$. Go to step $1$.
+    \end{description}
+    \end{column}
+  \end{columns}
+
+  The Yamnitski-Levin algorithm does not specify which facet of the simplex to change in case of multiple possible rows to choose. If we fix all facets of the simplex but one, and search for the smallest such simplex that covers the positive constraints of $\pol$, then we have exactly the dual $1$-fair packing problem.
+
+  It is unclear if our algorithm outperforms the classical Yamnitsky-Levin in this context, but it improves in certain cases.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \begin{references}{References}
+ \bibliography{bibfile}
+ \end{references}
+
+\end{columns}

@@ -247,7 +247,7 @@ function Scene_Propagation(level_map){
         if(self._listener_controls)
             unsubscribe(self._listener_controls);
         self.won = false;
-        aux = document.getElementById("util_background")
+        aux = document.getElementById("util_background");
         if(aux){
             aux.remove();
             for(var l=0;l<self.flows.length;l++){

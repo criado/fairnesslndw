@@ -85,8 +85,8 @@ Narrator.addStates({
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion1");
-                state._listener2 = subscribe("/mouse/click",function(scene){
-                    unsubscribe(state._listener2);
+                state._listener = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener);
                     Narrator.hideCaption();
                     Narrator.goto("LEVEL2");
                 });
@@ -102,8 +102,8 @@ Narrator.addStates({
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion2");
-                state._listener2 = subscribe("/mouse/click",function(scene){
-                    unsubscribe(state._listener2);
+                state._listener = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener);
                     Narrator.hideCaption();
                     Narrator.goto("LEVEL3");
                 });
@@ -150,20 +150,23 @@ Narrator.addStates({
 			//Narrator.scene("Intro")
 			Narrator.scene("Propagation", level_map_3)
             Narrator.showCaption("during3");
-            state._listener3 = subscribe("/mouse/click",function(scene){
+            state._listener = subscribe("/mouse/click",function(scene){
                 Narrator.showCaption("during3b");
-                publish("/level/enable_controls");
-                unsubscribe(state._listener3);
-                state._listener = subscribe("/level/won",function(scene){
+                unsubscribe(state._listener);
+                state._listener = subscribe("/mouse/click",function(scene){
+                    publish("/level/enable_controls");
                     unsubscribe(state._listener);
-                    Narrator.showCaption("conclusion3");
-                    state._listener4 = subscribe("/mouse/click",function(scene){
-                        unsubscribe(state._listener4);
-                        Narrator.showCaption("conclusion3b");
-                        state._listener2 = subscribe("/mouse/click",function(scene){
-                            unsubscribe(state._listener2);
-                            Narrator.hideCaption();
-                            Narrator.goto("LEVEL4");
+                    state._listener = subscribe("/level/won",function(scene){
+                        unsubscribe(state._listener);
+                        Narrator.showCaption("conclusion3");
+                        state._listener = subscribe("/mouse/click",function(scene){
+                            unsubscribe(state._listener);
+                            Narrator.showCaption("conclusion3b");
+                            state._listener = subscribe("/mouse/click",function(scene){
+                                unsubscribe(state._listener);
+                                Narrator.hideCaption();
+                                Narrator.goto("LEVEL4");
+                            });
                         });
                     });
                 });
@@ -179,8 +182,8 @@ Narrator.addStates({
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion4");
-                state._listener2 = subscribe("/mouse/click",function(scene){
-                    unsubscribe(state._listener2);
+                state._listener = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener);
                     Narrator.hideCaption();
                     Narrator.goto("LEVEL5");
                 });
@@ -196,8 +199,8 @@ Narrator.addStates({
 			state._listener = subscribe("/level/won",function(scene){
                 unsubscribe(state._listener);
                 Narrator.showCaption("conclusion5");
-                state._listener2 = subscribe("/mouse/click",function(scene){
-                    unsubscribe(state._listener2);
+                state._listener = subscribe("/mouse/click",function(scene){
+                    unsubscribe(state._listener);
                     Narrator.hideCaption();
                     Narrator.goto("SCREENSAVER");
                 });

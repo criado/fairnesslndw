@@ -125,6 +125,7 @@ window.Narrator = new (function(){
 	self.goto = function(stateName){
 		return self.do(function(){
 			if(self.currentState) self.currentState.kill(self.currentState);
+            self.currentStateName = stateName;
 			self.currentState = self.states[stateName];
 			self.currentState.start(self.currentState);
 		});
@@ -179,7 +180,32 @@ window.Narrator = new (function(){
 	// UPDATE 
 	self.captionsDOM = document.getElementById("captions");
 	self.captionsText = document.querySelector("#captions > span");
+
+    self.frames_w_o_interaction = 0;
+    self.reset_app_soon = false;
+    self.interaction_seen = subscribe("/mouse/move",function(){
+        self.frames_w_o_interaction = 0;
+        if(self.reset_app_soon){
+            Narrator.showCaption("do_not_reset");
+            self.reset_app_soon = false;
+        }
+    });
+
 	self.update = function(){
+        if(self.frames_w_o_interaction == 30*50 && self.currentStateName != "SCREENSAVER"){
+            Narrator.showCaption("reset_warning");
+            self.reset_app_soon = true;
+        }
+        if(self.frames_w_o_interaction >= 30*60 && self.currentStateName != "SCREENSAVER"){
+            console.log("going to screensaver")
+            if (self.currentState._listener)
+                unsubscribe(self.currentState._listener);
+            self.goto("SCREENSAVER");
+            self.frames_w_o_interaction = 0;
+            self.reset_app_soon = false;
+        }
+        else
+            self.frames_w_o_interaction +=1 ;
 
 		// During!
 		if(self.currentState){

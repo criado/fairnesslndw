@@ -1,0 +1,74 @@
+\mode<all>
+
+\newcommand{\itemblock}{\rule[.2ex]{.6ex}{.6ex}}
+\setbeamertemplate{itemize item}{\itemblock}
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{itemize subsubitem}{$\cdot$}
+
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{enumerate item}{\arabic{enumi}.}
+\setbeamertemplate{enumerate subitem}{\alph{enumii}.}
+\setbeamertemplate{enumerate subsubitem}{(\roman{enumiii})}
+
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}[period]
+
+\addtobeamertemplate{block begin}{\vspace{.5\baselineskip}}{\justifying}
+\addtobeamertemplate{block end}{}{\vspace{.5\baselineskip}}
+
+\setbeamertemplate{bibliography item}[text]
+% \setbeamertemplate{bibliography entry article}{}
+% \setbeamertemplate{bibliography entry title}{}
+% \setbeamertemplate{bibliography entry location}{}
+% \setbeamertemplate{bibliography entry note}{}
+
+\setbeamerfont{block title}{size=\normalsize}
+% \setbeamerfont{block title}{size=\large}
+\setbeamerfont{bibliography item}{size=\footnotesize}
+\setbeamerfont{bibliography entry author}{size=\footnotesize}
+
+\newenvironment<>{references}[1]{%
+  \setbeamercolor{block title}{fg=mpgray,bg=white}%
+  \setbeamercolor{block body}{parent=block title}
+  \begin{block}#2{#1}}{\end{block}}
+
+\renewenvironment<>{proof}[1][\proofname]
+	{%
+	\par
+	\def\insertproofname{#1}%
+	\pushQED{\qed}%
+	\usebeamertemplate{proof begin}#2%
+	}
+	{\popQED\usebeamertemplate{proof end}}
+
+\setlength\leftmargini  {3em}
+\setlength\leftmarginii  {3em}
+\setlength\leftmarginiii  {3em}
+\setlength\labelsep  {1em}
+\setlength\labelwidth{\leftmargini}
+\addtolength\labelwidth{-\labelsep}
+
+% \setlength\leftmargini  {2em}
+% \setlength\leftmarginii  {2em}
+% \setlength\leftmarginiii  {2em}
+% \setlength\labelsep  {.5em}
+% \setlength\labelwidth{\leftmargini}
+% \addtolength\labelwidth{-\labelsep}
+
+\def\@listi{\leftmargin\leftmargini
+            \topsep .75ex \@plus 1ex \@minus.5ex
+            \parsep 0\p@
+            \itemsep3\p@ \@plus2\p@ \@minus3\p@}
+\let\@listI\@listi
+\def\@listii{\leftmargin\leftmarginii
+              \topsep    2\p@ \@plus1\p@ \@minus2\p@
+              \parsep    0\p@   \@plus\p@
+              \itemsep   \parsep}
+\def\@listiii{\leftmargin\leftmarginiii
+              \topsep    2\p@ \@plus1\p@ \@minus2\p@
+              \parsep    0\p@   \@plus\p@
+              \itemsep   \parsep}
+

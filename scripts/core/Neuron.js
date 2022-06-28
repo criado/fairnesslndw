@@ -414,11 +414,10 @@ Neuron.load_scene_data = function(scene,string,detailed){
     scene.enabled_controls = input.enabled_controls;
 
     if(scene.enabled_controls){
-        console.log("asdf");
         Neuron.enable_controls(scene, input);
-        console.log("asdf2");
     }
     else{
+        document.getElementById("legend").style.display = "none";
         scene._listener_controls = subscribe("/level/enable_controls",function(){
             Neuron.enable_controls(scene, scene.level_data);
             unsubscribe(scene._listener_controls);
@@ -448,6 +447,7 @@ Neuron.load_scene_data = function(scene,string,detailed){
 
 Neuron.enable_controls = function(scene, input){
     controls = document.getElementById("controls");
+    document.getElementById("legend").style.display = "";
     for(var i=0;i<input.initial.length;i++){
         controls.innerHTML += `<input class="control_volume_slider" id="control_volume_slider_${i}" style="--img-path:url(\'./../assets/ui/sad.png\')" type="range" orient="vertical" min="0" max="100" step="${window.Narrator._GLOBAL_.eps}" value="${input.initial[i]}" />`;
     }

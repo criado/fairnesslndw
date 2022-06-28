@@ -1,0 +1,54 @@
+\mode<presentation>
+
+\newcommand{\footlogosep}{\hspace{2.5em}}
+
+\setbeamertemplate{headline}{
+	\leavevmode
+	\begin{columns}[t,totalwidth=\textwidth]
+	\hspace*{25.4mm}%
+	\begin{column}{.75\textwidth}
+	\raggedright
+	\usebeamercolor[fg]{subtitle in head/foot}{\Large\insertsubtitle}\\[5ex]
+  {\Huge\usebeamercolor[fg]{title in head/foot}{\inserttitle}\par}%
+  \vspace{7ex}%
+  {\Large\usebeamercolor[fg]{author in head/foot}{\insertauthor}\par}%
+  \end{column}
+	\begin{column}{.2\textwidth}
+	\vspace{-40pt}
+  \raggedleft\par
+  \ifthenelse{\boolean{BMS}}
+  {\begin{tabular}{@{}l<{\hspace*{25.4mm}}@{}}
+  \includegraphics[height=.045\paperwidth]{logo-MATHPLUS-trim}\\[7ex]
+  \includegraphics[height=.0444\paperwidth]{logo-BMS-petrol}%
+   \end{tabular}}
+  {\includegraphics[height=.045\paperwidth]{logo-MATHPLUS-trim}\hspace*{25.4mm}}%
+	\end{column}
+\end{columns}
+}
+
+\setbeamertemplate{footline}{%
+ 	\leavevmode
+		\centering
+    \ifthenelse{\boolean{affiliation}}
+		{\printFUBlogo
+    \printHUBlogo
+    \printTUBlogo
+    \printWIASlogo
+    \printZIBlogo}
+    {\textcolor{magenta}{\Large 
+        \begin{tabular}{@{}l@{\quad}>{\ttfamily}l@{}}
+          Please set author affiliation option(s): & FUB, HUB, TUB, ZIB, WIAS\\
+          If applicable, please also set cooperation partner option(s): & PIK, DAI
+       \end{tabular}}
+     }
+    \ifthenelse{\boolean{cooperationpartner}}
+    {\hspace{8em}\raisebox{4.5ex}{\fontsize{20pt}{20pt}\selectfont \textcolor{mppetrol}{COOPERATION PARTNER:}}
+     \footlogosep
+		 \raisebox{-2ex}[2ex][0pt]{\printDAIlogo\printPIKlogo}}
+    {}
+		\vskip.05\paperwidth
+	} 
+
+\beamertemplatenavigationsymbolsempty
+
+\mode<all>

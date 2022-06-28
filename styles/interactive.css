@@ -21,7 +21,10 @@ div, canvas{
 }
 
 #canvas{
-	background-color:#fed;
+	background-color:#fff;
+	/*
+    background-color:#fed;
+    */
 	display:block;
 
 	width: 2300px;
@@ -67,7 +70,7 @@ div, canvas{
 
 #ui{
 	position: absolute;
-    left: 1670px;
+    left: 1720px;
     /*top: 0;*/
 	bottom: 0;
 	width: 200px;
@@ -151,7 +154,7 @@ div, canvas{
 }
 
 #controls{
-	width: 180px;
+	width: 130px;
 	height: 100%;
 	background: rgba(0,0,0,0.5);
 }
@@ -232,7 +235,7 @@ div, canvas{
 #legend{
     position: absolute;
     top: 5px;
-    left: 65px;
+    right: 580px;
 	width: 200px;
 	height: 50px;
 }

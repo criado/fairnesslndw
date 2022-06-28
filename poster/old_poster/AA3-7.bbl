@@ -1,0 +1,45 @@
+\begin{thebibliography}{999}
+
+\bibitem{allen2019nearly}
+Z.~Allen{-}Zhu and L.~Orecchia.
+\newblock Nearly linear-time packing and covering {LP} solvers - achieving
+  width-independence and 1/epsilon-convergence.
+\newblock {\em Math. Program.}, 175(1-2):307--353, 2019.
+\newblock URL: \url{https://doi.org/10.1007/s10107-018-1244-x}, \href
+  {http://dx.doi.org/10.1007/s10107-018-1244-x}
+  {\path{doi:10.1007/s10107-018-1244-x}}.
+
+\bibitem{arora2012multiplicative}
+S.~Arora, E.~Hazan, and S.~Kale.
+\newblock The multiplicative weights update method: a meta-algorithm and
+  applications.
+\newblock {\em Theory Comput.}, 8(1):121--164, 2012.
+\newblock URL: \url{https://doi.org/10.4086/toc.2012.v008a006}, \href
+  {http://dx.doi.org/10.4086/toc.2012.v008a006}
+  {\path{doi:10.4086/toc.2012.v008a006}}.
+
+\bibitem{bertsimas2011}
+D.~Bertsimas, V.~F. Farias, and N.~Trichakis.
+\newblock The price of fairness.
+\newblock {\em Oper. Res.}, 59(1):17--31, 2011.
+\newblock URL: \url{https://doi.org/10.1287/opre.1100.0865}, \href
+  {http://dx.doi.org/10.1287/opre.1100.0865}
+  {\path{doi:10.1287/opre.1100.0865}}.
+
+\bibitem{diakonikolas2020fair}
+J.~Diakonikolas, M.~Fazel, and L.~Orecchia.
+\newblock Fair packing and covering on a relative scale.
+\newblock {\em {SIAM} J. Optim.}, 30(4):3284--3314, 2020.
+\newblock URL: \url{https://doi.org/10.1137/19M1288516}, \href
+  {http://dx.doi.org/10.1137/19M1288516} {\path{doi:10.1137/19M1288516}}.
+
+\bibitem{yamnitsky1982}
+B.~Yamnitsky and L.~A. Levin.
+\newblock An old linear programming algorithm runs in polynomial time.
+\newblock In {\em 23rd Annual Symposium on Foundations of Computer Science,
+  Chicago, Illinois, USA, 3-5 November 1982}, pages 327--328. {IEEE} Computer
+  Society, 1982.
+\newblock URL: \url{https://doi.org/10.1109/SFCS.1982.63}, \href
+  {http://dx.doi.org/10.1109/SFCS.1982.63} {\path{doi:10.1109/SFCS.1982.63}}.
+
+\end{thebibliography}

@@ -10,6 +10,7 @@
 	
 	// Event Handling
 	var canvas = window.clickme || document.getElementById("canvas");
+	var container = window.clickme || document.getElementById("container");
 	var onMouseMove,onTouchMove;
 	
 	canvas.addEventListener("mousedown",function(event){
@@ -25,12 +26,21 @@
 	    //publish("/mouse/down");
 	},false);
 
+    document.getElementById("captions").onclick = function(){
+	    publish("/mouse/click");
+    }
+
 	canvas.addEventListener("mouseup",function(event){
 	    Mouse.pressed = false;
 	    publish("/mouse/up");
 	},false);
 
-	canvas.addEventListener("mousemove",onMouseMove = function(e){
+
+	container.addEventListener("click",onMouseMove = function(e){
+		publish("/mouse/move");
+    }, false);
+
+	container.addEventListener("mousemove",onMouseMove = function(e){
 
 		// Real X & Y
 		if(e.offsetX){
