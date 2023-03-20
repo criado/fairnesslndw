@@ -13,7 +13,7 @@ window.Captions = {
             "conclusion2": "Nice! But... what does it mean to be fair? The assignment should satisfy 4 simple properties (check the poster). There is only one way to satisfy them all!!",
 			"during3": "Now make everyone happy by giving them what is fair. :D\n\nRemember there is only one way to satisfy the 4 fairness properties.\nThey imply that whoever uses more resources should receive less, since they slow everyone too much.",
             "during3b": "Find the fair solution! By the way, what's that bar on the left?",
-            "conclusion3": "You guessed it, the bar shows the total info delivered per second. And look! Things are now fair but the bar has decreased.  The gap is called the price of fairness",
+            "conclusion3": "You guessed it, the bar shows the total info delivered per second. And look! Things are now fair but the bar has decreased.  The gray gap is called the price of fairness",
             "conclusion3b": "Have you noticed that here the fair thing to do was to give red half of what others receive because red uses twice as many critical connections?",
             "during4": "Oh my, now the connections are not equally thick. Giving red 1/3 of what the others get won't help now.",
             "conclusion4": "Computing these solutions gets harder and harder the more complex the network is. We studied this and more general problems in our research",

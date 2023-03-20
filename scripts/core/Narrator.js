@@ -193,16 +193,16 @@ window.Narrator = new (function(){
 
 	self.update = function(){
         if(self.frames_w_o_interaction == 30*50 && self.currentStateName != "SCREENSAVER"){
-            Narrator.showCaption("reset_warning");
-            self.reset_app_soon = true;
+            //Narrator.showCaption("reset_warning");
+            //self.reset_app_soon = true;
         }
         if(self.frames_w_o_interaction >= 30*60 && self.currentStateName != "SCREENSAVER"){
-            console.log("going to screensaver")
-            if (self.currentState._listener)
-                unsubscribe(self.currentState._listener);
-            self.goto("SCREENSAVER");
-            self.frames_w_o_interaction = 0;
-            self.reset_app_soon = false;
+            //console.log("going to screensaver")
+            //if (self.currentState._listener)
+            //    unsubscribe(self.currentState._listener);
+            //self.goto("SCREENSAVER");
+            //self.frames_w_o_interaction = 0;
+            //self.reset_app_soon = false;
         }
         else
             self.frames_w_o_interaction +=1 ;
